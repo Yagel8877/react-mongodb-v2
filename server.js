@@ -20,7 +20,7 @@ const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credent
 //     .catch((err) => {console.log(err)})
 
 app.get('/', function (req, res) {
-   res.sendFile(path.join(__dirname, 'build', 'index.html')).then(console.log('route home'));
+   res.sendFile(path.join(__dirname, 'build', 'index.html'));
  });
 
 app.get('/express_backend', (req,res) => {
