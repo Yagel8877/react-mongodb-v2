@@ -12,7 +12,7 @@ const path = require("path")
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 app.use(express.json())
-app.use(express.static(path.join(__dirname,'client', 'build')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credentials?retryWrites=true&w=majority"
 // mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
