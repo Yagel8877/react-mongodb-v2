@@ -1,0 +1,39 @@
+POST http://localhost:5000/signup
+Content-Type: application/json
+
+{
+    "userName" : "yael",
+    "password" : "1234"
+}
+
+####
+GET http://localhost:5000/users
+
+####
+
+GET http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "userName": "admin",
+    "password": "addmin"
+}
+
+###
+
+POST http://localhost:5000/signup
+Content-Type: application/json
+
+{
+    "userName": "121",
+    "password": "121"
+}
+
+###
+POST http://localhost:5000/signup
+Content-Type: application/json
+
+{
+    "userName": "mikii",
+    "password": "1111"
+}
