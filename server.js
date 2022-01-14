@@ -6,18 +6,22 @@ const jwt = require('jsonwebtoken');
 const port = process.env.PORT || 5000; 
 const User = require('./client/models/User');
 const { EILSEQ } = require('constants');
+const path = require("path")
 
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 app.use(express.json())
+app.use(express.static(path.join(__dirname,'client', 'build')));
 
 const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credentials?retryWrites=true&w=majority"
 // mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 //     .then((result) => {console.log('connection made to DB')})
 //     .catch((err) => {console.log(err)})
 
-
+app.get('/', function (req, res) {
+   res.sendFile(path.join(__dirname, 'build', 'index.html').then(console.log('route home')));
+ });
 
 app.get('/express_backend', (req,res) => {
   res.status(200).send({express: "Server's responding"})
