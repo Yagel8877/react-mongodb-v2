@@ -32,16 +32,19 @@ const Login = () => {
     
     
     return ( 
-        <div><form id="login" method='GET' action='/login'>
-        <input name="userName" />
-        <input name='password'/>
-        <button onClick={(e) => {HandleClickLogin(e)}}>click me</button>
-    </form>
-    <div className='flex '>
-    <p id='container' className='text-lg mt-6 first-line:capitalize text-red-900 border-2 border-black p-4 hidden '>{Msg}</p>
-    </div>
-    </div>
+        <div className='bg-yellow-100 h-[100vh]'>
+            <div className='flex justify-center text-center pt-[15vh]'>
+            <form id="login" method='GET' action='/login' className='grid grid-rows-3 border-2 w-[30vw] h-[50vh]  place-content-center border-black p-[50px] bg-green-100'>
+                <input placeholder='username'name="userName" className='border border-black rounded-lg h-[40px] w-[90%]'/>
+                <input placeholder='password'name='password' className='border border-black rounded-lg h-[40px]'/>
+                <div className='flex gap-[5vw] h-[45%] w-[80%]'>
+                <button className='rounded-md border-2 border-black w-[25%] h-[50px]' onClick={(e) => {HandleClickLogin(e)}}>Login!</button>   
+                <p id='container' className='text-[1em] first-line:capitalize text-red-900 border-2 border-black hidden '>{Msg}</p>
+                </div>
 
+            </form>
+            </div>
+            </div>
      );
 }
  

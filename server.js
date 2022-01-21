@@ -9,7 +9,7 @@ const { EILSEQ } = require('constants');
 const path = require("path")
 
 
-
+let D = new Date;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '/client/build')));
@@ -60,7 +60,7 @@ app.post('/login', async (req,res)=>{
   const user = await User.findOne({userName: req.body.userName})
   try{ 
   if(await bcrypt.compare(req.body.password, user.password)){
-      res.send(`${user.userName} has logged in at ` + Date())
+      res.send(`${user.userName} has logged in at ` + D.getMinutes())
       // mongoose.disconnect().then(
         // console.log('disconnected')
         // )
