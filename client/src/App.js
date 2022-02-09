@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from './components/Home';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
+import Slug from './components/Slug';
+
 
 class App extends Component {
 state = {
@@ -33,31 +35,22 @@ state = {
     }
     else{
       return (
-      <div>
-
-        <p></p>
-        
-        <Router >  
-          <div className="app">
+          <div className="app">        
             <p className='mb-6'>{this.state.data}</p>
-            <Switch>
-            <Route exact path='/'>
-            <Home />
-            </Route>
-            <Route path='/signup'>
-            <SignUp />
-            </Route>
-            <Route path='/login'>
-            <Login />
-            </Route>
-            </Switch>
+          <Router >  
+            <Routes>
+            <Route exact path='/' element={<Home />}/>
+            <Route path='/signup' element={<SignUp />}/>
+            <Route path='/login' element={<Login />}/>
+            <Route path='/v/:slug' element={<Slug />}/>
+            </Routes>
+          </Router> 
           </div>
-      </Router>
-    </div>
     );
     }
   }
 }
+
 
 export default App;
 
