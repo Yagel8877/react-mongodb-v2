@@ -23,6 +23,10 @@ app.get('/', function (req, res) {
    res.sendFile(path.join(__dirname,'/client/build/index.html'));
  });
 
+ app.get('/v/*', function (req, res) {
+   res.sendFile(path.join(__dirname,'/client/build/index.html'));
+ });
+
 app.get('/express_backend', (req,res) => {
   res.status(200).send({express: "Server's responding"})
 })
