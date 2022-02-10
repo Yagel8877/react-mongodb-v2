@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
    res.sendFile(path.join(__dirname,'/client/build/index.html'));
  });
 
- app.get('/v/*', function (req, res) {
+ app.get('/page/*', function (req, res) {
    res.sendFile(path.join(__dirname,'/client/build/index.html'));
  });
 

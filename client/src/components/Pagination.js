@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
-import data from "../data2.json";
+import data from "../data.json";
+import { Link } from "react-router-dom";
 
 const Pagination = () => {
     let { slug } = useParams();
@@ -8,47 +9,47 @@ const Pagination = () => {
     // console.log(length)
     if(IntSlug === 1){
         return(
-            <div className="flex">
-            <p>{IntSlug}</p>
-            <p>{IntSlug + 1}</p>
-            <p>{IntSlug + 2} </p>
-            <p>{IntSlug + 3}</p>
-            <p>{IntSlug + 4}</p>
+            <div className="gap-2 itemss-center text-center flex bg-green-600 ml-[20vw] mr-[20vw] justify-center">
+            <Link to={`/page/`+ IntSlug} className="w-[50px] h-[50px] border-2 bg-red-500 border-black">{IntSlug}</Link>
+            <Link to={`/page/`+ (IntSlug + 1)} className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black">{IntSlug + 1}</Link>
+            <Link to={`/page/`+ (IntSlug + 2)} className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black">{IntSlug + 2} </Link>
+            <Link to={`/page/`+ (IntSlug + 3)} className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black">{IntSlug + 3}</Link>
+            <Link to={`/page/`+ (IntSlug + 4)} className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black">{IntSlug + 4}</Link>
             </div>
         )
     }
     else if(IntSlug === 2){
         return(
-            <div className="flex">
-            <p>{IntSlug - 1}</p>
-            <p>{IntSlug}</p>
-            <p>{IntSlug + 1}</p>
-            <p>{IntSlug + 2} </p>
+            <div className="gap-2 itemss-center text-center flex bg-green-600 ml-[20vw] mr-[20vw] justify-center">
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug-1)}>{IntSlug - 1}</Link>
+            <Link className="w-[50px] h-[50px] border-2 bg-red-500 border-black" to={`/page/`+(IntSlug)}>{IntSlug}</Link>
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug+1)}>{IntSlug + 1}</Link>
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug+2)}>{IntSlug + 2} </Link>
 
 
             </div>
         )}
-    else if(IntSlug === Math.ceil(length/5)){
+    else if(IntSlug === Math.ceil(length/8)){
         return(
-            <div className="flex">
-            <p>{IntSlug - 2}</p>
-            <p>{IntSlug - 1}</p>
-            <p>{IntSlug}</p>
+            <div className="gap-2 itemss-center text-center flex bg-green-600 ml-[20vw] mr-[20vw] justify-center">
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black"to={`/page/`+(IntSlug-2)}>{IntSlug - 2}</Link>
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black"to={`/page/`+(IntSlug-1)}>{IntSlug - 1}</Link>
+            <Link className="w-[50px] h-[50px] border-2 bg-red-500 border-black "to={`/page/`+IntSlug}>{IntSlug}</Link>
             </div>
         )
     }
-    else if(IntSlug > length/5){
+    else if(IntSlug > length/8){
         return(
             <p className="hidden"></p>
         )
     }
     else return(
-        <div className="flex">
-            <p>{IntSlug - 2}</p>
-            <p>{IntSlug - 1}</p>
-            <p>{IntSlug}</p>
-            <p>{IntSlug + 1}</p>
-            <p>{IntSlug + 2} </p>
+        <div className="gap-2 itemss-center text-center flex bg-green-600 ml-[20vw] mr-[20vw] justify-center">
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug-2)}>{IntSlug - 2}</Link>
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug-1)}>{IntSlug - 1}</Link>
+            <Link className="w-[50px] h-[50px] border-2 border-black bg-red-500" to={`/page/`+IntSlug}>{IntSlug}</Link>
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug+1)}>{IntSlug + 1}</Link>
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug+2)}>{IntSlug + 2} </Link>
             </div>
     )
 

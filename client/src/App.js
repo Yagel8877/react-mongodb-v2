@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Slug from './components/Slug';
+import Layout from './components/Layout';
 
 
 class App extends Component {
@@ -35,15 +36,16 @@ state = {
     }
     else{
       return (
-          <div className="app">        
-            <p className='mb-6'>{this.state.data}</p>
+          <div className="app bg-blue-100">        
           <Router >  
+            <Layout>
             <Routes>
             <Route exact path='/' element={<Home />}/>
             <Route path='/signup' element={<SignUp />}/>
             <Route path='/login' element={<Login />}/>
-            <Route path='/v/:slug' element={<Slug />}/>
+            <Route path='/page/:slug' element={<Slug />}/>
             </Routes>
+            </Layout>
           </Router> 
           </div>
     );

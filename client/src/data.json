@@ -154,15 +154,5 @@
             "vid":"31",
             "vlink": "http://localhost:3000/v/a22d",
             "CreatedAt": "Now"   
-        },
-        {
-            "vid":"32",
-            "vlink": "http://localhost:3000/v/a22d",
-            "CreatedAt": "Now"   
-        },
-        {
-            "vid":"33",
-            "vlink": "http://localhost:3000/v/a22d",
-            "CreatedAt": "Now"   
         }
-]   
+]
