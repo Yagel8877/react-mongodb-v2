@@ -13,8 +13,9 @@ const SignUp = () => {
         axios.post('/signup', {
             userName: username,
             password: pass
-        }).then ((resp) => { console.log(resp)}).catch((err)=> {console.log(err)})
-        console.log(`${username}, ${pass}` )
+        }).then((res)=>{if(res.status!==200){
+            window.location.href='/jwtauth'}}).catch((err)=> {console.log(err)})
+        
     }
  
 

@@ -1,6 +1,7 @@
-import NavBar from "./NavBar"
+import NavBar from "./NavBar";
 
 const Layout = ({children}) => {
+    
     return(
         <>
         <NavBar />

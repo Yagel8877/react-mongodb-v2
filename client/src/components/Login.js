@@ -1,12 +1,11 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 const axios = require('axios');
-
 
 const Login = () => {
     
    
 
-    const [Msg, setMsg] = useState('')
+    // const [Msg, setMsg] = useState('')
     const HandleClickLogin = (e) => {
         e.preventDefault();
           
@@ -22,9 +21,17 @@ const Login = () => {
             userName: username,
             password: pass
         
-        }).then(res => setMsg(res.data)).then(setTimeout( () => 
-            document.getElementById('container').classList.remove('hidden'), 2500)
-         ).catch(err => console.log(err))
+        }).then((res)=>{
+            if(res.status === 200){
+                window.location.href='/jwtauth'
+            }else{
+                console.log('cant login')
+            }
+        
+        })
+        // .then(res => setMsg(res.data)).then(setTimeout( () => 
+        //     document.getElementById('container').classList.remove('hidden'), 2500)
+        //  ).catch(err => console.log(err))
         
     }
       
@@ -39,7 +46,7 @@ const Login = () => {
                 <input placeholder='password'name='password' className='border border-black rounded-lg h-[40px]'/>
                 <div className='flex gap-[5vw] h-[45%] w-[80%]'>
                 <button className='rounded-md border-2 border-black w-[25%] h-[50px]' onClick={(e) => {HandleClickLogin(e)}}>Login!</button>   
-                <p id='container' className='text-[1em] first-line:capitalize text-red-900 border-2 border-black hidden '>{Msg}</p>
+                {/* <p id='container' className='text-[1em] first-line:capitalize text-red-900 border-2 border-black hidden '>{Msg}</p> */}
                 </div>
 
             </form>
