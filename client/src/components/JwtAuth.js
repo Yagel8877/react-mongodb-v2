@@ -23,7 +23,6 @@ class JwtAuth extends Component{
               console.log(this.state.auth)
           
             }
-            return this.state.auth;
           };
         render(){
         if(this.state.auth === true){

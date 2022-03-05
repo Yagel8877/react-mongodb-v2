@@ -41,7 +41,7 @@ function App(){
       return (
           <div className="app bg-blue-100">        
           <Router >  
-            <Layout >
+            <Layout>
             <Routes>
             <Route exact path='/' element={<Home />}/>
             <Route path='/signup' element={<SignUp />}/>
