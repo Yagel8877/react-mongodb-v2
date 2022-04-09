@@ -15,3 +15,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.PaginationDiv {
+  @apply gap-2 text-center flex bg-green-600 md:ml-[10vw] md:mr-[10vw] justify-evenly border-2 border-black
+}
+
+.NavItem {
+  @apply md:text-xl border-[3px] border-blue-600 p-2 bg-white rounded-2xl font-bold text-blue-800 hover:bg-blue-100 transition ease-in-out hover:translate-y-1 duration-300 hover:scale-110
+}
+
+.ImageNav {
+  @apply w-[80px] h-[80px] sm:flex md:hidden
+}

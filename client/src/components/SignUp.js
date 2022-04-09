@@ -14,7 +14,7 @@ const SignUp = () => {
             userName: username,
             password: pass
         }).then((res)=>{if(res.status!==200){
-            window.location.href='/jwtauth'}}).catch((err)=> {console.log(err)})
+            window.location.href='/jwtauth'}}).catch(e=>console.log('try another username'))
         
     }
  

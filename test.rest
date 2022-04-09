@@ -37,3 +37,9 @@ Content-Type: application/json
     "userName": "mikii",
     "password": "1111"
 }
+###
+POST http://localhost:5000/postvideo
+Content-Type: : application/json
+{
+    "a":"a"
+}

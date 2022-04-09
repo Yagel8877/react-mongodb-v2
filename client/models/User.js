@@ -10,6 +10,10 @@ const userSchema = new Schema({
         required: true,
         type: String,
 
+    },
+        isAdmin: {
+        required: false,
+        type: Boolean,
     }
 }, {timestamps: true});
 

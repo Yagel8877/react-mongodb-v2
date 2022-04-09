@@ -1,15 +1,17 @@
 import { useParams } from "react-router";
-import data from "../data.json";
+import data from "../data2.json";
 import { Link } from "react-router-dom";
 
 const Pagination = () => {
     let { slug } = useParams();
     let IntSlug = parseInt(slug);
     let length = data.length
-    // console.log(length)
+    let DividedLen = Math.ceil(length / 8)
+    console.log(length)
+    console.log(DividedLen)
     if(IntSlug === 1){
         return(
-            <div className="gap-2 itemss-center text-center flex bg-green-600 ml-[20vw] mr-[20vw] justify-center">
+            <div className="PaginationDiv">
             <Link to={`/page/`+ IntSlug} className="w-[50px] h-[50px] border-2 bg-red-500 border-black">{IntSlug}</Link>
             <Link to={`/page/`+ (IntSlug + 1)} className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black">{IntSlug + 1}</Link>
             <Link to={`/page/`+ (IntSlug + 2)} className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black">{IntSlug + 2} </Link>
@@ -18,20 +20,32 @@ const Pagination = () => {
             </div>
         )
     }
+    
     else if(IntSlug === 2){
         return(
-            <div className="gap-2 itemss-center text-center flex bg-green-600 ml-[20vw] mr-[20vw] justify-center">
+            <div className="PaginationDiv">
             <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug-1)}>{IntSlug - 1}</Link>
             <Link className="w-[50px] h-[50px] border-2 bg-red-500 border-black" to={`/page/`+(IntSlug)}>{IntSlug}</Link>
             <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug+1)}>{IntSlug + 1}</Link>
             <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug+2)}>{IntSlug + 2} </Link>
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug+3)}>{IntSlug + 3} </Link>
 
 
             </div>
         )}
+    else if(IntSlug === Math.ceil(length/8)-1){
+        return(
+            <div className="PaginationDiv">
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black"to={`/page/`+(IntSlug-1)}>{IntSlug - 1}</Link>
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 bg-red-500 border-black"to={`/page/`+(IntSlug)}>{IntSlug}</Link>
+            <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black "to={`/page/`+(IntSlug+1)}>{IntSlug+1}</Link>
+            </div>
+        )
+
+    }
     else if(IntSlug === Math.ceil(length/8)){
         return(
-            <div className="gap-2 itemss-center text-center flex bg-green-600 ml-[20vw] mr-[20vw] justify-center">
+            <div className="PaginationDiv">
             <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black"to={`/page/`+(IntSlug-2)}>{IntSlug - 2}</Link>
             <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black"to={`/page/`+(IntSlug-1)}>{IntSlug - 1}</Link>
             <Link className="w-[50px] h-[50px] border-2 bg-red-500 border-black "to={`/page/`+IntSlug}>{IntSlug}</Link>
@@ -44,7 +58,7 @@ const Pagination = () => {
         )
     }
     else return(
-        <div className="gap-2 itemss-center text-center flex bg-green-600 ml-[20vw] mr-[20vw] justify-center">
+        <div className="PaginationDiv">
             <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug-2)}>{IntSlug - 2}</Link>
             <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug-1)}>{IntSlug - 1}</Link>
             <Link className="w-[50px] h-[50px] border-2 border-black bg-red-500" to={`/page/`+IntSlug}>{IntSlug}</Link>
@@ -52,10 +66,15 @@ const Pagination = () => {
             <Link className="w-[50px] h-[50px] border-2 hover:bg-gray-400 border-black" to={`/page/`+(IntSlug+2)}>{IntSlug + 2} </Link>
             </div>
     )
+    
+        
 
-
-
-
+    
 
 }
+
+
+
+
+
 export default Pagination;
