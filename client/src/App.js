@@ -29,7 +29,7 @@ class App extends Component{
             <Route path='/login' element={<Login />}/>
             <Route path='/page/:slug' element={<Slug />}/>
             <Route path='/checkserver' element={<CheckServer />}/>
-            <Route path='/jwtauth' element={<JwtAuth />}/>
+            <Route path='/jwtauth2' element={<JwtAuth />}/>
             <Route path='/postvideo' element={<PostVideo />}/>
             </Routes>
             </Layout>
