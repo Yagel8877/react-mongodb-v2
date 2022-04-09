@@ -17,7 +17,7 @@ app.use(cookieParser())
 const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credentials?retryWrites=true&w=majority"
 
 
-app.get('/', function (req, res) {
+app.get('/*', function (req, res) {
    res.sendFile(path.join(__dirname,'/client/build/index.html'));
  });
 
@@ -35,7 +35,8 @@ app.get('/signup', (req,res) => {
 })
 
 app.get('/jwtauth', jwtVerify, (req,res)=>{
-  res.status(200).send('')
+  res.status(200).sendFile(path.join(__dirname,'/client/build/index.html'));
+
 })
 
 
