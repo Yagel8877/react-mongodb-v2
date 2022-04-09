@@ -28,7 +28,7 @@ class JwtAuth extends Component{
           
           return(
             <div>
-              {this.state.isAuth ? <p>authed</p>: <p>not authed</p>}
+              {this.state.auth ? <p>authed</p>: <p>not authed</p>}
               <p>heyyy</p>
             </div>
 
