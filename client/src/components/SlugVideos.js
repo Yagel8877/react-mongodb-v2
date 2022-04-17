@@ -19,7 +19,7 @@ const SlugVideos = () => {
                 return(
                     <div className="md:mt-[9vh]" key={data.vId}>
                     <Link to={`/video/`+ data.serialNum}>
-                        <div className='pt-[56.25%] transition border-2 border-white duration-150 bg-green-700 hover:shadow-2xl hover:-translate-y-1 shadow-green-900'>
+                        <div className='pt-[56.25%] text-red-300 transition border-2 border-white duration-150 bg-green-700 hover:shadow-2xl hover:-translate-y-1 shadow-green-900'>
                             {data.serialNum}
                         </div>
                     </Link>
