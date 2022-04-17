@@ -9,6 +9,7 @@ import Layout from './components/Layout';
 import CheckServer from './components/CheckServer';
 import JwtAuth from './components/JwtAuth';
 import PostVideo from './components/PostVideo';
+import VideoPage from './components/VideoPage';
 // import  AuthContextProvider  from './context/AuthContext';
 
 
@@ -19,7 +20,7 @@ class App extends Component{
 
     render(){
       return (
-          <div className="app bg-blue-100">        
+          <div className="app bg-black">        
           <Router >
             {/* <AuthContextProvider> */}
             <Layout>
@@ -31,6 +32,7 @@ class App extends Component{
             <Route path='/checkserver' element={<CheckServer />}/>
             <Route path='/jwtauth2' element={<JwtAuth />}/>
             <Route path='/postvideo' element={<PostVideo />}/>
+            <Route path='/video/:slug' element={<VideoPage />}/>
             </Routes>
             </Layout>
             {/* </AuthContextProvider> */}

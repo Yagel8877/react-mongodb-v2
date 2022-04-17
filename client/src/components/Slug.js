@@ -19,7 +19,7 @@ function Slug(){
     return <p>404</p>
    }
     else return(
-        <div className="md:w-[50vw] md:translate-x-[50%] sm:w-auto sm:h-auto">
+        <div className="md:w-[65vw] md:ml-[17.5vw] border-l-2 border-r-2 border-gray-400  sm:w-auto sm:h-auto">
         <SlugVideos />
         <Pagination />
         </div>

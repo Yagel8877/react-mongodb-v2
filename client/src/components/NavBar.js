@@ -66,11 +66,11 @@ class NavBar extends Component{
        
     
     render(){
-
+        
         return(
     <div>
 
-        <div className="hidden md:flex md:h-auto gap-2 justify-start md:justify-center pb-4 mb-4 border-b-2 border-solid border-black">
+        <div className="hidden md:flex gap-2 justify-start h-[10vh] md:justify-center  border-white border-b-2  ">
             <Link className="NavItem" to='/'>Home</Link>
         
             {this.state.isAuth ?
@@ -90,8 +90,10 @@ class NavBar extends Component{
             :
             <></>
         }
+        {this.state.isAuth ? <div></div> : <></>}
         </div>
-        <div>
+        
+        <div className="flex justify-end">
             
             {!this.state.isAuth ? 
             <Link to='login'><img src={login} alt='login' className="ImageNav"/></Link> : <Link onClick={()=>{document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'";this.changeState();}

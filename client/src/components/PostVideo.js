@@ -63,10 +63,10 @@ class PostVideo extends Component{
                 <div>
                     <form id="form" method='POST' action='/postvideo'>
                         <label>Video Title
-                        <input name="vidTitle" />
+                        <input className="text-black" name="vidTitle" />
                         </label>
                         <label>About video
-                        <input name='aboutVid'/>    
+                        <input className="text-black" name='aboutVid'/>    
                         </label>
                         <button onClick={(e) => {this.handleClickPostVid(e)}}>click me</button>
                     </form>

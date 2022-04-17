@@ -24,8 +24,10 @@ const Login = () => {
             password: pass
         
         }).then((res)=>{
+            if(res.data !== username){
             setMsg(res.data)
             document.getElementById('alertBox').classList.remove('hidden')
+        }
             if(res.status === 200){
                 // authContext.logIn()
                 // console.log(authContext.isAuth)
@@ -33,8 +35,10 @@ const Login = () => {
                 
             }else{
                 console.log('cant login')
-                setMsg(res.data)
-                document.getElementById('alertBox').classList.remove('hidden')
+                if(res.data !== username){
+                    setMsg(res.data)
+                    document.getElementById('alertBox').classList.remove('hidden')
+                }
                 
             }
             

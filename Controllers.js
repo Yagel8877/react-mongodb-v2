@@ -8,8 +8,8 @@ const { randomUUID } = require('crypto');
 const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credentials?retryWrites=true&w=majority"
 
 const D = new Date()
-const CreateToken= (userName, isAdmin) =>{
-  return token = jwt.sign({userName, isAdmin},'secret', {expiresIn: "15m"})
+const CreateToken= (userName, isAdmin, createdAt) =>{
+  return token = jwt.sign({userName, isAdmin, createdAt},'secret', {expiresIn: "15m"})
 }
 
 // const DecodeJwt= async (JwtToken)=>{
@@ -31,7 +31,10 @@ module.exports.Login = async (req, res) =>{
   const user = await User.findOne({userName: req.body.userName})
   try{ 
   if(await bcrypt.compare(req.body.password, user.password)){
-      const token = CreateToken(user.userName, user.isAdmin)
+      // const token = CreateToken(user.userName, user.isAdmin)
+      const token = CreateToken(user.userName, user.isAdmin, user.createdAt)
+      
+
       console.log('authenticated')
       res.cookie('jwt', token, {maxAge: 1000*60*15})
       res.status(200).send(user.userName)
