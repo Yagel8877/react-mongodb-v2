@@ -5,6 +5,12 @@ const User = require('./client/models/User');
 const fs = require('fs');
 const data = require('./client/src/data2.json');
 const { randomUUID } = require('crypto');
+const crypto = require('crypto');
+const multer = require('multer');
+const {GridFsStorage} = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
+const { createConnection } = require('net');
+
 const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credentials?retryWrites=true&w=majority"
 
 const D = new Date()
@@ -12,12 +18,21 @@ const CreateToken= (userName, isAdmin, createdAt) =>{
   return token = jwt.sign({userName, isAdmin, createdAt},'secret', {expiresIn: "15m"})
 }
 
+
+
 // const DecodeJwt= async (JwtToken)=>{
 //   if(jwt.verify(JwtToken, 'secret')){
 //     let DecodedToken = jwt.decode(JwtToken)
 //     return DecodedToken
 //   }
 // }
+
+module.exports.postimg = (req, res) =>{
+  console.log(req.file)
+  res.status(200).send()
+}
+
+
 
 module.exports.Login = async (req, res) =>{
   console.time('loopLogin')
@@ -85,6 +100,7 @@ module.exports.Signup = async (req,res) => {
 // Post Video req:POST
 module.exports.PostVid = (req, res) => {
   console.time('post a vid')
+  console.log(req)
   console.log(req.body)
   console.log(req.headers)
   req.body.vId = randomUUID()

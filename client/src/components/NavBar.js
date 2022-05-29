@@ -70,7 +70,7 @@ class NavBar extends Component{
         return(
     <div>
 
-        <div className="hidden md:flex gap-2 justify-start h-[10vh] md:justify-center  border-white border-b-2  ">
+        <div className="hidden md:flex gap-4 justify-start h-[10vh] md:justify-center  border-white border-b-2  ">
             <Link className="NavItem" to='/'>Home</Link>
         
             {this.state.isAuth ?

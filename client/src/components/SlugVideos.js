@@ -14,14 +14,14 @@ const SlugVideos = () => {
     // console.log(Nslug)
     // console.log(NLdata)
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:pl-[10%] md:mr-[10%] lg:h-[84vh] gap-6 md:gap-2">
+        <div className="grid grid-cols-1 md:pb-[5vh] md:grid-cols-2 lg:grid-cols-4 md:pl-[10%] md:mr-[10%] lg:h-[84vh] gap-6 md:gap-2">
             {SlicedData.map((data) => {
                 return(
-                    <div className="md:mt-[9vh]" key={data.vId}>
+                    <div className="pt-[56.25%]" key={data.vId}>
                     <Link to={`/video/`+ data.serialNum}>
-                        <div className='pt-[56.25%] text-red-400 transition border-2 border-white duration-150 bg-green-700 hover:shadow-2xl hover:-translate-y-1 shadow-green-900'>
-                            {data.serialNum}
-                        </div>
+                        {/* <div className='pt-[56.25%] text-red-400 transition border-2 border-white duration-150 bg-blue-600 hover:shadow-2xl hover:-translate-y-1 shadow-green-900'> */}
+                            <img src={`/image/`+data?.thumbnailSrc} ></img>
+                        {/* </div> */}
                     </Link>
                     <p className="font-bold overflow-hidden text-white text-lg">{(data.vidTitle?.length > 50) ? `${data.vidTitle.substring(0,50)}...` : data.vidTitle}</p>
                     </div>

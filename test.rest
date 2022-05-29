@@ -43,3 +43,7 @@ Content-Type: : application/json
 {
     "a":"a"
 }
+###
+GET http://localhost:5000/files2
+###
+

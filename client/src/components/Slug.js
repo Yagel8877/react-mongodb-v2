@@ -15,7 +15,7 @@ function Slug(){
     if(isNaN(IntSlug)){
         return <p>404</p>
     }
-   if(NLdata < 1){
+   if(NLdata < 0){
     return <p>404</p>
    }
     else return(

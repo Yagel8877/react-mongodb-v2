@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import { useParams } from "react-router";
 import data from "../data2.json";
+import NavBar from "./NavBar";
 
 
 
@@ -15,11 +17,18 @@ const VideoPage = () => {
     
 
 
-        if(!video.aboutVid){
+        if(video === undefined){
+            return <p>no such vid</p>
+        }
+        if(!video?.aboutVid){
             return <p className="text-white">no about</p>
         }
         return(
-            <p className="text-white">{video.aboutVid}</p>
+            <div>
+                <p className="text-white">{video?.aboutVid}</p>
+                <iframe src={video?.vidSrc} allowFullScreen={true} title={video.vidTitle}></iframe>
+
+            </div>
 
 
         )
