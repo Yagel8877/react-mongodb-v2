@@ -12,6 +12,8 @@ import PostVideo from './components/PostVideo';
 import VideoPage from './components/VideoPage';
 import Files from './components/FIles';
 import NavBar from './components/NavBar';
+import PostImage from './components/PostImage';
+import Featured from './components/Featured';
 // import  AuthContextProvider  from './context/AuthContext';
 
 
@@ -35,7 +37,10 @@ class App extends Component{
             <Route path='/jwtauth2' element={<JwtAuth />}/>
             <Route path='/postvideo' element={<PostVideo />}/>
             <Route path='/video/:slug' element={<VideoPage />}/>
+            <Route path='/postimg' element={<PostImage />}/>
             <Route path='/files' element={<Files />}/>
+            <Route path='/featured' element={<Featured />}/>
+
             </Routes>
             </Layout>
             {/* </AuthContextProvider> */}

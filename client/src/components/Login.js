@@ -63,7 +63,7 @@ const Login = () => {
     }
     
     return( 
-        <div className='bg-gray-800 h-[100vh]'>
+        <div className='bg-gray-800 h-[90vh]'>
             <div className="pt-[10vh]">
             <form id="login" method='GET' action='/login' className='grid grid-rows-4 ml-auto mr-auto border-2 mt-2  bg-gray-700 md:w-[30vw] md:h-[50vh] place-content-center border-black p-[5vh]'>
             {Msg ?

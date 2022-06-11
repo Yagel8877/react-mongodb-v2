@@ -1,10 +1,18 @@
-import axios from "axios";
+const { Component } = require("react");
 
-const Files = () =>{
+class Files extends Component{
 
-    axios.get('/files').then((res)=>{
-        console.log(res.data[1])
-    })
-    return(<p>a</p>)
+    async Main(){
+        console.time('a')
+       let data = await fetch('/files').then(res=>res.json()).then(e=>console.log(e.slice(-1))).then(console.timeEnd('a'))
+
+    }
+    
+
+    render(){
+        this.Main()
+        return(<p>a</p>)
+    }
 }
+
 export default Files;

@@ -4,11 +4,12 @@ import SlugVideos from "./SlugVideos";
 import data from '../data2.json';
 
 function Slug(){
+    let NumOfVids = 12
    let { slug } = useParams(); 
    let IntSlug = parseInt(slug)
    let Ldata = data.length
    let Nslug = slug - 1;
-   let NLdata = Ldata - 8* Nslug;
+   let NLdata = Ldata - NumOfVids* Nslug;
 //    console.log(IntSlug)
 //    console.log(Ldata)
 //    console.log(NLdata)

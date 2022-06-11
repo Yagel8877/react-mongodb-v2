@@ -91,6 +91,7 @@ class NavBar extends Component{
             <></>
         }
         {this.state.isAuth ? <div></div> : <></>}
+        <Link className="NavItem" to='/featured'>Featured!</Link>
         </div>
         
         <div className="flex justify-end">

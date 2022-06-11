@@ -23,6 +23,9 @@ const VideoPage = () => {
         if(!video?.aboutVid){
             return <p className="text-white">no about</p>
         }
+        if(!video?.vidSrc.includes('www')){
+            return <p>f outta here no valid src</p>
+        }
         return(
             <div>
                 <p className="text-white">{video?.aboutVid}</p>

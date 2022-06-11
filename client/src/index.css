@@ -25,7 +25,8 @@ code {
 }
 
 .ImageNav {
-  @apply w-[80px] h-[80px] sm:flex md:hidden 
+  @apply w-[80px] h-[80px] sm:flex md:hidden
+  
 }
 
 main{

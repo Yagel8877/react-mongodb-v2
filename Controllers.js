@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('./client/models/User');
+const ViewedVideos = require('./client/models/ViewedVideosSchema')
 const fs = require('fs');
 const data = require('./client/src/data2.json');
 const { randomUUID } = require('crypto');
@@ -10,8 +11,12 @@ const multer = require('multer');
 const {GridFsStorage} = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const { createConnection } = require('net');
+const { equal } = require('assert');
 
 const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credentials?retryWrites=true&w=majority"
+const dbURI2 = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/VideoAlgorithm?retryWrites=true&w=majority"
+
+
 
 const D = new Date()
 const CreateToken= (userName, isAdmin, createdAt) =>{
@@ -29,7 +34,7 @@ const CreateToken= (userName, isAdmin, createdAt) =>{
 
 module.exports.postimg = (req, res) =>{
   console.log(req.file)
-  res.status(200).send()
+  res.status(200).send(req.file)
 }
 
 
@@ -100,12 +105,26 @@ module.exports.Signup = async (req,res) => {
 // Post Video req:POST
 module.exports.PostVid = (req, res) => {
   console.time('post a vid')
-  console.log(req)
+  // console.log(req)
   console.log(req.body)
-  console.log(req.headers)
+  // console.log(req.headers)
   req.body.vId = randomUUID()
   req.body.serialNum = data.length + 1
   if(req.body.vidTitle === '') return;
+  
+  
+  // check if the thumbnailsrc is a string and if doesnt have png/jpeg so change the thumnail srcc!
+
+
+  
+  let strsrc = req.body.vidSrc
+  if(strsrc === undefined){
+    console.log('undefined vidsrc')
+  }
+  else if(!strsrc.includes('.com'))  {
+    console.log('not a valid source!! (not .com ending')
+    return;
+  };
   let obj = JSON.stringify(req.body)
   console.log(obj)
   
@@ -125,3 +144,31 @@ fs.readFile(file_path, function read(err, data) {
 console.timeEnd('post a vid')
 
 } 
+
+function FilterVideos(e){
+  for(let i=999; i>0; i--){
+    if(e[i]?.Viewed === i){
+      return true
+    }
+  }
+}
+
+module.exports.VideosAlgorithm = async (req, res) => {
+    console.log(req.body + " -> Posted to Viewedvideos")
+    mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => {console.log('connection made to DB - VideosAlgorithm')}).catch((err) => {res.status(400).send(err)})
+    
+    // console.log(req.body + " sent to server")
+    const options = { upsert: true, new: true}
+    const update = {$inc: {'Viewed': 1},vId: req.body.vId, vidTitle: req.body.vidTitle, thumbnailSrc: req.body.thumbnailSrc}
+
+      await ViewedVideos.findOneAndUpdate({serialNum: req.body.serialNum}, update, options).catch(e=>console.log(e))
+
+      let list1 = await ViewedVideos.find()
+
+      let B = list1.sort((a,b)=>{return b.Viewed-a.Viewed})
+      let TwelveList = B.slice(0,11)
+      console.log(TwelveList)
+    
+    
+}

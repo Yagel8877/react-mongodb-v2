@@ -9,10 +9,11 @@ const app = express();
 const path = require("path")
 const jwt = require('jsonwebtoken')
 const methodOverride = require('method-override');
-const { Login, Signup, PostVid, postimg } = require('./Controllers');
+const { Login, Signup, PostVid, postimg, VideosAlgorithm } = require('./Controllers');
 const { jwtVerify, jwtVerifyAdmin} = require('./Middleware');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000; 
+const ViewedVideos = require('./client/models/ViewedVideosSchema');
 
 
 let D = new Date;
@@ -25,6 +26,7 @@ app.use(methodOverride('_method'));
 
 
 const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credentials?retryWrites=true&w=majority"
+const dbURI2 = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/VideoAlgorithm?retryWrites=true&w=majority"
 
 
 app.get('/', function (req, res) {
@@ -55,6 +57,8 @@ app.post('/signup', Signup)
 app.post('/login', Login)
 
 app.post('/postvideo', jwtVerifyAdmin, PostVid)
+
+app.post('/viewedvideos', jwtVerify, VideosAlgorithm)
 
 
 
@@ -139,3 +143,22 @@ app.get('/image/:filename', (req,res)=>{
   })
     })
   
+app.get('/featured', async(req,res)=>{
+    console.log(req.body + " -> GET '/featured'")
+    mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => {console.log("connection made to DB - GET '/featured'")}).catch((err) => {res.status(400).send(err)})
+      
+      let list1 = await ViewedVideos.find()
+
+      let B = list1.sort((a,b)=>{return b.Viewed-a.Viewed})
+      let TwelveList = B.slice(0,12)
+      console.log(TwelveList)
+      if(!TwelveList){
+        res.status(500).send('not works')
+        console.log('not works - no twelvelist')
+
+      }else{
+        res.status(201).json(TwelveList)
+      }
+
+})
