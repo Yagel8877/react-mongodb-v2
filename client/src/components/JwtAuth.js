@@ -13,7 +13,7 @@ class JwtAuth extends Component{
           
           callBackendAPI = async () => {
           
-            const response = await fetch('/jwtauth');
+            const response = await fetch('/api/jwtauth');
             // const body = await response.json();
         
             if (response.status !== 200) {

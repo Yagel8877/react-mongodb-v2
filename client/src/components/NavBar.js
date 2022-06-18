@@ -21,7 +21,7 @@ class NavBar extends Component{
         
         console.log('mounted navBar')
         try{
-        let res = await fetch('/jwtauth')
+        let res = await fetch('/api/jwtauth')
         console.log(res)
         if(res.status === 200){
             this.setState({isAuth: true, isAdmin: false})

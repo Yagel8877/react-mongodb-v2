@@ -62,7 +62,7 @@ app.get('/signup', (req,res) => {
   res.send({msg:'serv work signup'}).status(200)
 })
 
-app.get('/jwtauth', jwtVerify, (req,res)=>{
+app.get('/api/jwtauth', jwtVerify, (req,res)=>{
   res.status(200).sendFile(path.join(__dirname,'/client/build/index.html'));
   // res.status(200)
 
@@ -123,7 +123,7 @@ app.post('/postimg', upload.single('thumbnail'), postimg)
 
 
 
-app.get('/files', (req,res)=>{
+app.get('/api/files', (req,res)=>{
 gfs?.files?.find().toArray((err,file)=>{
     if(!file || file.length === 0){
       return res.status(404).json({err: 'no files!'}) 
@@ -132,7 +132,7 @@ gfs?.files?.find().toArray((err,file)=>{
   })
 })
 
-app.get('/image/:filename', cache('1 day'), (req,res)=>{
+app.get('/api/image/:filename', cache('1 day'), (req,res)=>{
   // console.time('findshowimage')
   // console.log(req.params.filename)
   if(req.params.filename === 'undefined'){
@@ -160,7 +160,7 @@ app.get('/image/:filename', cache('1 day'), (req,res)=>{
   })
     })
   
-app.get('/featured', cache('1 day') ,async(req,res)=>{
+app.get('/api/featured', cache('1 day') ,async(req,res)=>{
     // console.log(req.body + " -> GET '/featured'")
     console.log('called /featured')
     mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })

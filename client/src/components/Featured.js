@@ -11,7 +11,7 @@ class Featured extends Component{
     }
     }
     componentDidMount(){
-        axios.get('/featured').then(e=>{
+        axios.get('/api/featured').then(e=>{
             this.setState({data: e.data})
             // console.log(this.state.data)
             // console.log(e.data)
@@ -43,7 +43,7 @@ class Featured extends Component{
                     <Link to={`/video/`+ data.serialNum} >
                         {/* <div className='pt-[56.25%] text-red-400 transition border-2 border-white duration-150 bg-blue-600 hover:shadow-2xl hover:-translate-y-1 shadow-green-900'> */}
 
-                            <img src={`/image/`+data?.thumbnailSrc} alt="fun nice" className=""></img>
+                            <img src={`/api/image/`+data?.thumbnailSrc} alt="fun nice" className=""></img>
                         {/* </div> */}
                     </Link>
                     <p className="font-bold overflow-hidden text-white text-lg">{(data?.vidTitle?.length > 50) ? `${data?.vidTitle.substring(0,50)}...` : data?.vidTitle}</p>
