@@ -7,6 +7,7 @@ module.exports.jwtVerify = (req,res,next) =>{
     jwt.verify(jwtcookie,'secret', (err,decoded)=>{
       if(err){
         console.log('failed auth')
+        console.timeEnd('jwtverifyauthmiddleware')
       }else{
         console.log('success auth')
         console.timeEnd('jwtverifyauthmiddleware')
@@ -33,3 +34,5 @@ module.exports.jwtVerifyAdmin =(req,res,next)=>{
       
     })
   }
+
+  

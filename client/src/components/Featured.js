@@ -1,5 +1,4 @@
 import axios from "axios";
-import Pagination from './Pagination';
 import { Link } from "react-router-dom";
 
 const { Component } = require("react");
@@ -14,8 +13,8 @@ class Featured extends Component{
     componentDidMount(){
         axios.get('/featured').then(e=>{
             this.setState({data: e.data})
-            console.log(this.state.data)
-            console.log(e.data)
+            // console.log(this.state.data)
+            // console.log(e.data)
         
     })
 

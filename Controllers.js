@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('./client/models/User');
 const ViewedVideos = require('./client/models/ViewedVideosSchema')
+const FeaturedVideos = require('./client/models/FeaturedVideosSchema')
 const fs = require('fs');
 const data = require('./client/src/data2.json');
 const { randomUUID } = require('crypto');
@@ -171,4 +172,31 @@ module.exports.VideosAlgorithm = async (req, res) => {
       console.log(TwelveList)
     
     
+}
+
+module.exports.RenewFeatured = async() =>{
+  console.log('called renewFeatured')
+  mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((result) => {console.log("connection made to DB - GET '/featured'")}).catch((err) => {console.log(err)})
+    
+
+
+    let list1 = await ViewedVideos.find()
+
+    let B = list1.sort((a,b)=>{return b.Viewed-a.Viewed})
+    let TwelveList = B.slice(0,12)
+    // console.log(TwelveList)
+    if(!TwelveList){
+      // res.status(500).send('not works')
+      // console.log('not works - no twelvelist')
+
+    }else{
+      // res.status(201).json(TwelveList)
+      await FeaturedVideos.deleteMany({})
+      await FeaturedVideos.insertMany([...TwelveList])
+
+    }
+    await ViewedVideos.updateMany({}, { $set: { Viewed: 0 } });
+
+
 }

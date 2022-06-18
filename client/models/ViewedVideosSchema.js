@@ -17,11 +17,11 @@ const ViewedVideosSchema = new Schema({
         type: String
     },
     vidTitle:{
-        required: true,
+        required: false,
         type: String,
     },
     vId:{
-        required: false,
+        required: true,
         type: String,
     },
     aboutVid:{

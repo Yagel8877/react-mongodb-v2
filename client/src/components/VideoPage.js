@@ -1,7 +1,5 @@
-import { Suspense } from "react";
 import { useParams } from "react-router";
 import data from "../data2.json";
-import NavBar from "./NavBar";
 
 
 
@@ -20,9 +18,10 @@ const VideoPage = () => {
         if(video === undefined){
             return <p>no such vid</p>
         }
-        if(!video?.aboutVid){
-            return <p className="text-white">no about</p>
+        if(!video?.aboutVid || !video?.vidSrc || !video?.vidTitle){
+            return <p className="text-white">there's a missing data</p>
         }
+       
         if(!video?.vidSrc.includes('www')){
             return <p>f outta here no valid src</p>
         }

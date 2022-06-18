@@ -7,9 +7,9 @@ const Pagination = () => {
     let { slug } = useParams();
     let IntSlug = parseInt(slug);
     let length = data.length
-    let DividedLen = Math.ceil(length / NumOfVids)
-    console.log(length)
-    console.log(DividedLen)
+    // let DividedLen = Math.ceil(length / NumOfVids)
+    // console.log(length)
+    // console.log(DividedLen)
     if(IntSlug === 1){
         return(
             <div className="PaginationDiv">
