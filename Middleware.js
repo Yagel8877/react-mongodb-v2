@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken');
 
 module.exports.jwtVerify = (req,res,next) =>{
     const jwtcookie = req.cookies.jwt
+    if(jwtcookie === undefined){
+      res.status(401)
+    }
     console.time('jwtverifyauthmiddleware')
     jwt.verify(jwtcookie,'secret', (err,decoded)=>{
       if(err){
