@@ -6,7 +6,7 @@ const FeaturedVideosSchema = new Schema({
         
     serialNum:{
         required: true,
-        type: Array,
+        type: Number,
         },
     Viewed: {
             required: false,
@@ -40,3 +40,4 @@ const FeaturedVideosSchema = new Schema({
 
 const FeaturedVideos = mongoose.model('FeaturedVideos', FeaturedVideosSchema);
 module.exports = FeaturedVideos;
+module.exports = FeaturedVideosSchema;

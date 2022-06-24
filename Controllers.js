@@ -13,6 +13,9 @@ const {GridFsStorage} = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const { createConnection } = require('net');
 const { equal } = require('assert');
+const ViewedVideosSchema = require('./client/models/ViewedVideosSchema');
+const FeaturedVideosSchema = require('./client/models/FeaturedVideosSchema');
+const userSchema = require('./client/models/User');
 
 const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credentials?retryWrites=true&w=majority"
 const dbURI2 = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/VideoAlgorithm?retryWrites=true&w=majority"
@@ -42,14 +45,18 @@ module.exports.postimg = (req, res) =>{
 
 module.exports.Login = async (req, res) =>{
   console.time('loopLogin')
-    if(mongoose.connection.readyState === 0) {mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((result) => {console.log('connection made to DB- searching user login')}).catch((err) => {res.status(400).send(err)})}
+    // if(mongoose.connection.readyState === 0) {mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    // .then((result) => {console.log('connection made to DB- searching user login')}).catch((err) => {res.status(400).send(err)})}
 
+   let conn = mongoose.createConnection(dbURI, {serverSelectionTimeoutMS: 1000, useNewUrlParser: true, useUnifiedTopology: true})
+   const UserConn = conn.model('Users', userSchema)
+
+    
     // const CreateToken= (id) =>{
     //     return token = jwt.sign({id},'secret')
     //   }
 
-  const user = await User.findOne({userName: req.body.userName})
+  const user = await UserConn.findOne({userName: req.body.userName})
   try{ 
   if(await bcrypt.compare(req.body.password, user.password)){
       // const token = CreateToken(user.userName, user.isAdmin)
@@ -155,48 +162,59 @@ function FilterVideos(e){
 }
 
 module.exports.VideosAlgorithm = async (req, res) => {
-    console.log(req.body + " -> Posted to Viewedvideos")
-    mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((result) => {console.log('connection made to DB - VideosAlgorithm')}).catch((err) => {res.status(400).send(err)})
+    console.log(" -> Posted to Viewedvideos")
+    // mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
+    // .then((result) => {console.log('connection made to DB - VideosAlgorithm')}).catch((err) => {res.status(400).send(err)})
     
+    const conn = mongoose.createConnection(dbURI2, {serverSelectionTimeoutMS: 3000, useNewUrlParser: true, useUnifiedTopology: true});
+    const ViewedVideosConn = conn.model('Viewedvideos', ViewedVideosSchema);
+
     // console.log(req.body + " sent to server")
     const options = { upsert: true, new: true}
     const update = {$inc: {'Viewed': 1},vId: req.body.vId, vidTitle: req.body.vidTitle, thumbnailSrc: req.body.thumbnailSrc}
 
-      await ViewedVideos.findOneAndUpdate({serialNum: req.body.serialNum}, update, options).catch(e=>console.log(e))
+      await ViewedVideosConn.findOneAndUpdate({serialNum: req.body.serialNum}, update, options).catch(e=>console.log(e))
 
-      let list1 = await ViewedVideos.find()
+      let list1 = await ViewedVideosConn.find()
 
       let B = list1.sort((a,b)=>{return b.Viewed-a.Viewed})
       let TwelveList = B.slice(0,11)
-      console.log(TwelveList)
+      
+      //see the feaured videos, 12 in numbers
+      // console.log(TwelveList)
+    
     
     
 }
 
 module.exports.RenewFeatured = async() =>{
   console.log('called renewFeatured')
-  mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((result) => {console.log("connection made to DB - GET '/featured'")}).catch((err) => {console.log(err)})
+  // mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
+  // .then((result) => {console.log("connection made to DB - GET '/featured'")}).catch((err) => {console.log(err)})
     
+    const conn = mongoose.createConnection(dbURI2, {serverSelectionTimeoutMS: 3000, useNewUrlParser: true, useUnifiedTopology: true});
+    const ViewedVideosConn = conn.model('Viewedvideos', ViewedVideosSchema);
+    const FeaturedVideosConn = conn.model('Featuredvideos', FeaturedVideosSchema)
 
+    let list1 = await ViewedVideosConn.find()
 
-    let list1 = await ViewedVideos.find()
 
     let B = list1.sort((a,b)=>{return b.Viewed-a.Viewed})
     let TwelveList = B.slice(0,12)
     // console.log(TwelveList)
-    if(!TwelveList){
+    if(TwelveList.length != 12){
       // res.status(500).send('not works')
       // console.log('not works - no twelvelist')
+      console.log(TwelveList.length + "length of featured videos list")
 
     }else{
       // res.status(201).json(TwelveList)
-      await FeaturedVideos.deleteMany({})
-      await FeaturedVideos.insertMany([...TwelveList])
+      await FeaturedVideosConn.deleteMany({})
+      await FeaturedVideosConn.insertMany([...TwelveList]).catch(e=>{console.log(e);return})
+      await ViewedVideosConn.updateMany({}, { $set: { Viewed: 0 } });
 
     }
-    await ViewedVideos.updateMany({}, { $set: { Viewed: 0 } });
+    // await ViewedVideosConn.updateMany({}, { $set: { Viewed: 0 } });
 
 
 }

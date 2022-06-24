@@ -18,6 +18,7 @@ const Compression = require("compression");
 const cron = require('node-cron');
 const apicache = require('apicache');
 const FeaturedVideos = require('./client/models/FeaturedVideosSchema');
+const FeaturedVideosSchema = require('./client/models/FeaturedVideosSchema');
 
 
 let D = new Date;
@@ -45,7 +46,7 @@ cron.schedule('0 1 * * 1,2,3,4,5,6,7', () => {
 // });
 
 
-app.get('/', function (req, res) {
+app.get('/',cache('1 day') , function (req, res) {
    res.sendFile(path.join(__dirname,'/client/build/index.html'));
  });
 
@@ -53,8 +54,11 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname,'/client/build/index.html'));
 });
 
- app.get('/page/*', function (req, res) {
+app.get('/jwtauth', function (req, res) {
+  res.sendFile(path.join(__dirname,'/client/build/index.html'));
+});
 
+ app.get('/page/*', function (req, res) {
    res.sendFile(path.join(__dirname,'/client/build/index.html'));
  });
 
@@ -63,13 +67,17 @@ app.get('/express_backend', (req,res) => {
 })
 
 app.get('/signup', (req,res) => {
-  res.send({msg:'serv work signup'}).status(200)
+  // res.send({msg:'serv work signup'}).status(200)
+  res.sendFile(path.join(__dirname,'/client/build/index.html'));
 })
 
 app.get('/api/jwtauth', jwtVerify, (req,res)=>{
   res.status(200).sendFile(path.join(__dirname,'/client/build/index.html'));
   // res.status(200)
 
+})
+app.get('/login', (req, res)=>{
+  res.sendFile(path.join(__dirname,'/client/build/index.html'));
 })
 
 
@@ -165,12 +173,18 @@ app.get('/api/image/:filename', cache('1 day'), (req,res)=>{
     })
   
 app.get('/api/featured', cache('1 day') ,async(req,res)=>{
-    // console.log(req.body + " -> GET '/featured'")
+    console.log(req.body + " -> GET '/featured'")
     console.log('called /featured')
-    mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((result) => {console.log("connection made to DB - GET '/featured'")}).catch((err) => {console.log(err)})
+    // mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
+    // .then((result) => {console.log("connection made to DB - GET '/featured'")}).catch((err) => {console.log(err)})
+
+    const conn = mongoose.createConnection(dbURI2, {serverSelectionTimeoutMS: 10000, useNewUrlParser: true, useUnifiedTopology: true});
+    const FeaturedVideosConn = conn.model('Featuredvideos', FeaturedVideosSchema)
+
+    //this is automated every day
+    // RenewFeatured().then(console.log('renewed featured!'))
     
-    let data = await FeaturedVideos.find()
+    let data = await FeaturedVideosConn.find()
     res.status(201).json(data)
 
     })
