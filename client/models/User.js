@@ -12,11 +12,11 @@ const userSchema = new Schema({
 
     },
         isAdmin: {
-        required: false,
+        required: false,    
         type: Boolean,
     }
 }, {timestamps: true});
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('Users', userSchema);
 module.exports = User;
-module.exports = userSchema;
+// module.exports = userSchema;

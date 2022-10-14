@@ -11,9 +11,12 @@ import JwtAuth from './components/JwtAuth';
 import PostVideo from './components/PostVideo';
 import VideoPage from './components/VideoPage';
 import Files from './components/FIles';
-import NavBar from './components/NavBar';
 import PostImage from './components/PostImage';
 import Featured from './components/Featured';
+import NewFile from './components/NewFIle';
+import {Helmet, HelmetProvider} from 'react-helmet-async';
+import data from "./data2.json";
+
 // import  AuthContextProvider  from './context/AuthContext';
 
 
@@ -23,9 +26,33 @@ class App extends Component{
 
 
     render(){
+
+      
+
       return (
-          <div className="app bg-black">        
-          <Router >
+        <HelmetProvider>
+
+          <div className="app bg-black">
+          <Helmet>
+          <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self';"/>
+            {data.map((d)=>{
+              if(d.thumbnailSrc === undefined){
+                d.thumbnailSrc = 'undefined'
+            }
+            else if(d.thumbnailSrc.includes('.jpeg') || d.thumbnailSrc.includes('.png')){
+                console.log('valid src')
+            }else{
+                d.thumbnailSrc = 'undefined'
+            }
+              
+
+              return(
+            <link rel='preload' as='image' href={`/api/image/`+d.thumbnailSrc} key={d.vId}></link>)
+            })
+    }
+            </Helmet>
+            <Router >
             {/* <AuthContextProvider> */}
             <Layout>
             <Routes>
@@ -40,12 +67,13 @@ class App extends Component{
             <Route path='/postimg' element={<PostImage />}/>
             <Route path='/files' element={<Files />}/>
             <Route path='/featured' element={<Featured />}/>
-
+            <Route path='/featured1' element={<NewFile />}/>
             </Routes>
             </Layout>
             {/* </AuthContextProvider> */}
           </Router> 
           </div>
+        </HelmetProvider>
     );
     }
   

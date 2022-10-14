@@ -3,7 +3,12 @@ import { Component } from 'react';
 
 
 class Home extends Component{
-
+    constructor(props){
+        super(props)
+        this.state = {
+            name: 'Guest'
+        }
+    }
 
     componentDidMount(){
         
@@ -19,6 +24,8 @@ class Home extends Component{
         
         decodedCookie = jwt_decode(jwtcookie)
         console.log({decodedCookie})
+        this.setState({name: decodedCookie?.userName})
+
     }}
     
 
@@ -29,8 +36,9 @@ class Home extends Component{
     return(
     <div className='h-[90vh]'>
     <p>Home page</p>
-    {/* <p> hello {decodedCookie?.userName}</p> */}
-    {/* <p>{isAuth ? <p>yes it works context</p> : <>nnn</>}</p> */}
+    <p>hello {this.state.name}</p>
+        {/* <p> hello {decodedCookie?.userName}</p> */}
+        {/* <p>{isAuth ? <p>yes it works context</p> : <>nnn</>}</p> */}
     </div>
 
 

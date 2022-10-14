@@ -17,7 +17,7 @@ code {
 }
 
 .PaginationDiv {
-  @apply gap-2 text-center flex relative z-10 bg-green-600 w-[50%] ml-[25%] md:h-[6vh] justify-evenly border-2 border-white
+  @apply gap-2 text-center w-[100vw] flex relative z-10 bg-green-600 md:w-[50%] md:ml-[25%] md:h-[6vh] justify-evenly border-2 border-white
 }
 
 .NavItem {
@@ -25,10 +25,11 @@ code {
 }
 
 .ImageNav {
-  @apply w-[80px] h-[80px] sm:flex md:hidden
+  @apply w-[80px] h-[80px] sm:flex md:hidden 
   
 }
 
 main{
   @apply text-white
 }
+

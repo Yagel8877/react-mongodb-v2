@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Component } from "react";
 import jwt_decode from "jwt-decode";
 import login from '../userlogin.svg';
-import logout from '../logout.png'
+import logout from '../user-logout-3056.svg';
 // import { AuthContext } from "../context/AuthContext";
 
 
@@ -97,7 +97,7 @@ class NavBar extends Component{
         <div className="flex justify-end">
             
             {!this.state.isAuth ? 
-            <Link to='login'><img src={login} alt='login' className="ImageNav"/></Link> : <Link onClick={()=>{document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'";this.changeState();}
+            <><Link className="NavItem md:hidden" to='/page/1'>Videos</Link><Link to='login'><img src={login} alt='login' className="ImageNav"/></Link></> : <Link onClick={()=>{document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'";this.changeState();}
             }
              to='/login'><img src={logout} className='ImageNav' alt='logout'/>
             </Link>

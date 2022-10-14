@@ -1,7 +1,10 @@
+import { lazy, Suspense } from "react";
 import { useParams } from "react-router-dom"
-import Pagination from "./Pagination";
-import SlugVideos from "./SlugVideos";
 import data from '../data2.json';
+import Pagination from "./Pagination";
+// const Pagination = lazy(()=> import('./Pagination'))
+// import SlugVideos from "./SlugVideos";
+const SlugVideos = lazy(()=> import('./SlugVideos'));
 
 function Slug(){
     let NumOfVids = 12
@@ -20,8 +23,11 @@ function Slug(){
     return <p>404</p>
    }
     else return(
-        <div className="md:w-[65vw] md:ml-[17.5vw] border-l-2 border-r-2 border-gray-400  sm:w-auto sm:h-auto">
+        <div className="md:w-[80vw] md:ml-[10vw] md:border-l-2 md:border-r-2 border-gray-400  sm:w-auto sm:h-auto">
+        
+        <Suspense fallback={<div className="w-[10vw] h-[100vh]">loading...</div>}>
         <SlugVideos />
+        </Suspense>
         <Pagination />
         </div>
         

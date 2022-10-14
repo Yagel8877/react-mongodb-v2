@@ -26,7 +26,7 @@ const VideoPage = () => {
             return <p>f outta here no valid src</p>
         }
         return(
-            <div>
+            <div className="h-[90vh]">
                 <p className="text-white">{video?.aboutVid}</p>
                 <iframe src={video?.vidSrc} allowFullScreen={true} title={video.vidTitle}></iframe>
 
