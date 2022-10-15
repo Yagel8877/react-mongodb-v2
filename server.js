@@ -7,22 +7,21 @@ const Grid = require('gridfs-stream');
 const express = require('express'); 
 const app = express(); 
 const path = require("path")
-const jwt = require('jsonwebtoken')
 const methodOverride = require('method-override');
 const { Login, Signup, PostVid, postimg, VideosAlgorithm, RenewFeatured } = require('./Controllers');
 const { jwtVerify, jwtVerifyAdmin} = require('./Middleware');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000; 
-const ViewedVideos = require('./client/models/ViewedVideosSchema');
 const Compression = require("compression");
 const cron = require('node-cron');
 const apicache = require('apicache');
-const FeaturedVideos = require('./client/models/FeaturedVideosSchema');
 const FeaturedVideosSchema = require('./client/models/FeaturedVideosSchema');
+const helmet = require('helmet');
 
 
 let D = new Date;
 app.listen(port, () => console.log(`Listening on port ${port}`));
+app.use(helmet())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '/client/build')));
 app.use(cookieParser())

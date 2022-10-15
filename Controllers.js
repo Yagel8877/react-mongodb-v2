@@ -1,21 +1,12 @@
-const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const User = require('./client/models/User');
-const ViewedVideos = require('./client/models/ViewedVideosSchema')
-const FeaturedVideos = require('./client/models/FeaturedVideosSchema')
 const fs = require('fs');
 const data = require('./client/src/data2.json');
 const { randomUUID } = require('crypto');
-const crypto = require('crypto');
-const multer = require('multer');
-const {GridFsStorage} = require('multer-gridfs-storage');
-const Grid = require('gridfs-stream');
-const { createConnection } = require('net');
-const { equal } = require('assert');
 const ViewedVideosSchema = require('./client/models/ViewedVideosSchema');
 const FeaturedVideosSchema = require('./client/models/FeaturedVideosSchema');
-const userSchema = require('./client/models/User');
 
 const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credentials?retryWrites=true&w=majority"
 const dbURI2 = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/VideoAlgorithm?retryWrites=true&w=majority"
@@ -45,18 +36,12 @@ module.exports.postimg = (req, res) =>{
 
 module.exports.Login = async (req, res) =>{
   console.time('loopLogin')
-    // if(mongoose.connection.readyState === 0) {mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    // .then((result) => {console.log('connection made to DB- searching user login')}).catch((err) => {res.status(400).send(err)})}
+    if(mongoose.connection.readyState === 0) {mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => {console.log('connection made to DB- searching user login')}).catch((err) => {res.status(400).send(err)})}
 
-   let conn = mongoose.createConnection(dbURI, {serverSelectionTimeoutMS: 1000, useNewUrlParser: true, useUnifiedTopology: true})
-   const UserConn = conn.model('Users', userSchema)
+  
 
-    
-    // const CreateToken= (id) =>{
-    //     return token = jwt.sign({id},'secret')
-    //   }
-
-  const user = await UserConn.findOne({userName: req.body.userName})
+  const user = await User.findOne({userName: req.body.userName})
   try{ 
   if(await bcrypt.compare(req.body.password, user.password)){
       // const token = CreateToken(user.userName, user.isAdmin)
@@ -91,7 +76,10 @@ module.exports.Signup = async (req,res) => {
     mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => {console.log('connection made to DB')}).catch((err) => {res.status(400).send(err)})
 
-    const isExist = await User.exists({userName: req.body.userName})
+    // let conn = mongoose.createConnection(dbURI, {serverSelectionTimeoutMS: 1000, useNewUrlParser: true, useUnifiedTopology: true})
+    // const UserConn = conn.model('Users', userSchema)
+
+    const isExist = await User.findOne({userName: req.body.userName})
     
     if(isExist){
       res.status(401).send('try another username')
@@ -99,10 +87,10 @@ module.exports.Signup = async (req,res) => {
     // else{
       const hashedPassword = await bcrypt.hash(req.body.password, 10)
       console.log(hashedPassword)
-      const user = new User({userName: req.body.userName, password: hashedPassword, isAdmin: false})
-      const token = CreateToken(user.userName, user.isAdmin, {maxAge: 1000*60*15})
-      user.save().then(res.cookie('jwt', token))
-      .then(() => { console.log(`user: ${user.userName} has been saved to db`)}).then()
+      let NewUser = new User({userName: req.body.userName, password: hashedPassword, isAdmin: false})
+      const token = CreateToken(NewUser.userName, NewUser.isAdmin, {maxAge: 1000*60*15})
+      NewUser.save().then(res.cookie('jwt', token))
+      .then(() => { console.log(`user: ${NewUser.userName} has been saved to db`)}).then()
       .catch(err=> {console.log(err)})
     
     res.status(201).send()
@@ -153,13 +141,6 @@ console.timeEnd('post a vid')
 
 } 
 
-function FilterVideos(e){
-  for(let i=999; i>0; i--){
-    if(e[i]?.Viewed === i){
-      return true
-    }
-  }
-}
 
 module.exports.VideosAlgorithm = async (req, res) => {
     console.log(" -> Posted to Viewedvideos")
