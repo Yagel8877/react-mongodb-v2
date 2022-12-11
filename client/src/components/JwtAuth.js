@@ -16,12 +16,11 @@ class JwtAuth extends Component{
             const response = await fetch('/api/jwtauth');
             // const body = await response.json();
         
-            if (response.status !== 200) {
-              console.log('err jwtauth')
-            }else{
+            if (response.status === 200) {
               this.setState({auth: true})
               console.log(this.state.auth)
-          
+            }else{
+              console.log("err jwtauth")
             }
           };
         render(){

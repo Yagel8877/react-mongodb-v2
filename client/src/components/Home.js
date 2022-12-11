@@ -29,6 +29,23 @@ class Home extends Component{
 
     }}
     
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.name !== this.state.name){
+            let decodedCookie
+            let jwtcookie = ''
+    
+            if(document.cookie.split(';').find(row => row.startsWith('jwt='))){
+            jwtcookie = document.cookie
+                .split(';')
+                .find(row => row.startsWith('jwt='))
+                .split('=')[1];
+        
+            decodedCookie = jwt_decode(jwtcookie)
+            this.setState({name: decodedCookie?.userName})
+            console.log('updated home didupdate')
+        }
+        }
+    }
 
 
     
