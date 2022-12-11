@@ -19,7 +19,8 @@ const SlugVideos = () => {
     // console.log(NLdata)
     return (
         <div className="grid grid-cols-1 pt-[4vh] md:pb-[1vh] md:grid-cols-2 lg:grid-cols-4 md:ml-[3vw] lg:h-[84vh] gap-4">
-            {SlicedData.map((data) => {   
+            {SlicedData.map((data) => { 
+                console.log(data)  
                 if(data.thumbnailSrc === undefined){
                     data.thumbnailSrc = 'undefined'
                 }

@@ -69,22 +69,35 @@ module.exports.Login = async (req, res) =>{
   console.timeEnd('loopLogin')
 }
 
+
+module.exports.Search = (req, res)=>{
+  console.log(req.body.data)
+  let ndata = data.filter((e)=>{
+    lcvt = e.vidTitle?.toLowerCase()
+    if(lcvt?.includes(req?.body?.data.toLowerCase())){
+      return true
+    }else return false
+    })
+    console.log(ndata)
+    res.send(ndata)
+}
+
 // Sign Up req:POST
 
 module.exports.Signup = async (req,res) => {
     console.time('loop')
-    mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((result) => {console.log('connection made to DB')}).catch((err) => {res.status(400).send(err)})
+    if(mongoose.connection.readyState === 0)  {mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => {console.log('connection made to DB')}).catch((err) => {res.status(400).send(err)})}
 
     // let conn = mongoose.createConnection(dbURI, {serverSelectionTimeoutMS: 1000, useNewUrlParser: true, useUnifiedTopology: true})
     // const UserConn = conn.model('Users', userSchema)
 
     const isExist = await User.findOne({userName: req.body.userName})
     
-    if(isExist){
-      res.status(401).send('try another username')
+    if(isExist || req.body.userName.includes(" ") || req.body.password.includes(" ")){
+      res.status(403).send('try another username')
     }
-    // else{
+    else if(req.body.userName.length > 0 && req.body.password.length > 0){
       const hashedPassword = await bcrypt.hash(req.body.password, 10)
       console.log(hashedPassword)
       let NewUser = new User({userName: req.body.userName, password: hashedPassword, isAdmin: false})
@@ -92,9 +105,11 @@ module.exports.Signup = async (req,res) => {
       NewUser.save().then(res.cookie('jwt', token))
       .then(() => { console.log(`user: ${NewUser.userName} has been saved to db`)}).then()
       .catch(err=> {console.log(err)})
-    
-    res.status(201).send()
-  // }
+      res.status(201).send()
+  }else{
+    res.send('signup is faulty').status(401)
+    console.log('aa')
+  }
   console.timeEnd('loop')
 }
 

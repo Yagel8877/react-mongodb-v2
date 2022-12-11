@@ -1,5 +1,6 @@
 import jwt_decode from 'jwt-decode';
 import { Component } from 'react';
+import SearchBar from './SearchBar.js'
 
 
 class Home extends Component{
@@ -39,7 +40,9 @@ class Home extends Component{
     <p>hello {this.state.name}</p>
         {/* <p> hello {decodedCookie?.userName}</p> */}
         {/* <p>{isAuth ? <p>yes it works context</p> : <>nnn</>}</p> */}
+        <SearchBar />
     </div>
+
 
 
 

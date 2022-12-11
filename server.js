@@ -8,7 +8,7 @@ const express = require('express');
 const app = express(); 
 const path = require("path")
 const methodOverride = require('method-override');
-const { Login, Signup, PostVid, postimg, VideosAlgorithm, RenewFeatured } = require('./Controllers');
+const { Login, Signup, PostVid, postimg, VideosAlgorithm, RenewFeatured, Search} = require('./Controllers');
 const { jwtVerify, jwtVerifyAdmin} = require('./Middleware');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000; 
@@ -89,7 +89,7 @@ app.post('/postvideo', jwtVerifyAdmin, PostVid)
 app.post('/viewedvideos', jwtVerify, VideosAlgorithm)
 
 
-
+app.post('/search', Search)
 
 
 

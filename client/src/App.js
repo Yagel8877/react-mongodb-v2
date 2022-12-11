@@ -1,22 +1,32 @@
-import React, { Component, Suspense} from 'react';
+import React, { Component, Suspense, lazy} from 'react';
 import './App.css';
-import Home from './components/Home';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SignUp from './components/SignUp';
-import Login from './components/Login';
-import Slug from './components/Slug';
-import Layout from './components/Layout';
-import CheckServer from './components/CheckServer';
-import JwtAuth from './components/JwtAuth';
-import PostVideo from './components/PostVideo';
-import VideoPage from './components/VideoPage';
-import Files from './components/FIles';
-import PostImage from './components/PostImage';
-import Featured from './components/Featured';
-import NewFile from './components/NewFIle';
-import {Helmet, HelmetProvider} from 'react-helmet-async';
 import data from "./data2.json";
-
+// import Home from './components/Home';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {Helmet, HelmetProvider} from 'react-helmet-async';
+// import SignUp from './components/SignUp';
+// import Login from './components/Login';
+// import Slug from './components/Slug';
+import Layout from './components/Layout';
+// import CheckServer from './components/CheckServer';
+import JwtAuth from './components/JwtAuth';
+// import NewFile from './components/NewFIle';
+// import PostVideo from './components/PostVideo';
+// import VideoPage from './components/VideoPage';
+// import Files from './components/FIles';
+// import PostImage from './components/PostImage';
+// import Featured from './components/Featured';
+const Featured = lazy(()=>import("./components/Featured"))
+const PostImage = lazy(()=>import("./components/PostImage"))
+const Files = lazy(()=>import("./components/FIles"))
+const VideoPage = lazy(()=>import("./components/VideoPage"))
+const PostVideo = lazy(()=>import("./components/PostVideo"))
+const Login = lazy(()=>import("./components/Login"))
+const SignUp = lazy(()=>import("./components/SignUp"))
+const Slug = lazy(()=>import("./components/Slug"))
+const Home = lazy(()=>import("./components/Home"))
+const NewFile = lazy(()=>import("./components/NewFile"))
+const CheckServer = lazy(()=>import("./components/CheckServer"))
 // import  AuthContextProvider  from './context/AuthContext';
 
 
@@ -52,6 +62,8 @@ class App extends Component{
             })
     }
             </Helmet>
+            <Suspense fallback={<div className='h-[100vh] w-[100vw] bg-transparent opacity-25 transtition ease-in delay-1000'>hey</div>}>
+
             <Router >
             {/* <AuthContextProvider> */}
             <Layout>
@@ -72,6 +84,7 @@ class App extends Component{
             </Layout>
             {/* </AuthContextProvider> */}
           </Router> 
+            </Suspense>
           </div>
         </HelmetProvider>
     );
