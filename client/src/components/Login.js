@@ -31,7 +31,7 @@ const Login = () => {
             if(res.status === 200){
                 // authContext.logIn()
                 // console.log(authContext.isAuth)
-                window.location.href='/jwtauth'
+                window.location.href='/'
                 
             }else{
                 console.log('cant login')

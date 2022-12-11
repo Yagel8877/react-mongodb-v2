@@ -49,8 +49,8 @@ module.exports.Login = async (req, res) =>{
       
 
       console.log('authenticated')
-      res.cookie('jwt', token, {maxAge: 1000*60*15})
-      res.status(200).send(user.userName)
+      // res.cookie('jwt', token, {maxAge: 1000*60*15})
+      res.status(200).cookie('jwt', token, {maxAge: 1000*60*15}).send(user.userName)
       
       
 
