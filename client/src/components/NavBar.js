@@ -17,39 +17,52 @@ class NavBar extends Component{
 
         
 
-   async componentDidMount(){
-        
-        console.log('mounted navBar')
+   componentDidMount(){
+        console.log('navbar mounted')
         try{
-        let res = await fetch('/api/jwtauth')
-        console.log(res)
-        if(res.status === 200){
-            this.setState({isAuth: true, isAdmin: false})
-            this.changeState()
-        }else{
-            this.setState({isAuth:false, isAdmin: false})
+            let iatNow = Math.floor(Date.now() / 1000)
+            let decodedCookie = ''
+            let jwtcookie
+            if(document.cookie.split(';').find(row => row.startsWith('jwt='))){
+                jwtcookie = document.cookie
+                .split(';')
+                .find(row => row.startsWith('jwt='))
+                .split('=')[1];
+            
+                decodedCookie = jwt_decode(jwtcookie)
+                if(decodedCookie?.exp > iatNow){
+                    this.setState({isAuth: true, isAdmin: decodedCookie?.isAdmin})
+                    // console.log('jwt is fine')
+                }else{
+                    this.setState({isAuth: false, isAdmin: false})
+                    // console.log('jwt expired')
+                }
+            }
+            
+        }catch(err){
+            console.log(err + " this an error")
         }
-    }catch(err){
-        console.log(err)
-    }
-    }
-      changeState(){
-        // let a =  document.cookie.length
-        // console.log(a)
-        // if(a > 6){
-        // this.setState({isAuth: true})
-        // this.forceUpdate()
-        // }
-        // else{
-        //     this.setState({isAuth:false})
-        //     console.log('uff')
-        // }
-        // console.log(`${this.state.isAuth} hey`)
-        // return 
 
+   }
+    //     console.log('mounted navBar')
+    //     try{
+    //     let res = await fetch('/api/jwtauth')
+    //     console.log(res)
+    //     if(res.status === 200){
+    //         this.setState({isAuth: true, isAdmin: false})
+    //         this.changeState()
+    //     }else{
+    //         this.setState({isAuth:false, isAdmin: false})
+    //     }
+    // }catch(err){
+    //     console.log(err)
+    // }
+    // }
+      changeState(){
+        
+        const iatNow = Math.floor(Date.now() / 1000)
         let decodedCookie = ''
         let jwtcookie
-        this.setState({isAuth: false, isAdmin: false})
         if(document.cookie.split(';').find(row => row.startsWith('jwt='))){
             jwtcookie = document.cookie
             .split(';')
@@ -57,16 +70,35 @@ class NavBar extends Component{
             .split('=')[1];
             
             decodedCookie = jwt_decode(jwtcookie)
+            if(parseInt(decodedCookie.exp) > iatNow){
             this.setState({isAuth: true, isAdmin: decodedCookie.isAdmin})
-            console.log({decodedCookie})
+            // console.log({decodedCookie})
+            }else{
+                this.setState({isAuth: false, isAdmin: false})
+            }
+            // console.log("nowIat" + Math.floor(Date.now() / 1000))
+            // console.log("decIat" + decodedCookie.iat)
+            // console.log(`time left for token is${parseInt(decodedCookie.exp) - iatNow }`)
+             
+           
     
     }
     // this.forceUpdate() 
+    }
+    componentDidUpdate(prevProps, prevState){
+        //checks if should update (if they're not the same)
+        // console.log(prevState)
+        // console.log(this.state)
+        if(prevState.isAuth !== this.state.isAuth){
+        console.log('updated navbar compdidupdate')
+        this.changeState()
+        }
     }
        
     
     render(){
         
+
         return(
     <div>
 
@@ -75,8 +107,7 @@ class NavBar extends Component{
         
             {this.state.isAuth ?
             <Link onClick={()=>{document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'";
-            this.changeState();
-         
+            this.setState({isAuth: false, isAdmin: false});
             }
         } className="NavItem" to='/login'>Log out</Link>
         : 

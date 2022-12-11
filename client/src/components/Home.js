@@ -24,12 +24,13 @@ class Home extends Component{
             .split('=')[1];
         
         decodedCookie = jwt_decode(jwtcookie)
-        console.log({decodedCookie})
+        // console.log({decodedCookie})
         this.setState({name: decodedCookie?.userName})
 
     }}
     
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(prevProps, prevState){   
+        // console.log(prevState.name, this.state.name)
         if(prevState.name !== this.state.name){
             let decodedCookie
             let jwtcookie = ''
