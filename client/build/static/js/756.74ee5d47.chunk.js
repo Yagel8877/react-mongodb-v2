@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmongodb_express=self.webpackChunkmongodb_express||[]).push([[756],{7756:function(e,n,s){s.r(n);var r=s(6417);n.default=function(){return(0,r.jsx)("div",{children:(0,r.jsx)("p",{children:"a"})})}}}]);
