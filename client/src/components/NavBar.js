@@ -102,7 +102,7 @@ class NavBar extends Component{
         return(
     <div>
 
-        <div className="hidden md:flex gap-4 justify-start h-[10vh] md:justify-center  border-white border-b-2  ">
+        <div className="flex gap-4 justify-start h-[10vh] md:justify-center  border-white border-b-2  ">
             <Link className="NavItem" to='/'>Home</Link>
         
             {this.state.isAuth ?
@@ -127,12 +127,12 @@ class NavBar extends Component{
         
         <div className="flex justify-end">
             
-            {!this.state.isAuth ? 
+            {/* {!this.state.isAuth ? 
             <><Link className="NavItem md:hidden" to='/page/1'>Videos</Link><Link to='login'><img src={login} alt='login' className="ImageNav"/></Link></> : <Link onClick={()=>{document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'";this.changeState();}
             }
              to='/login'><img src={logout} className='ImageNav' alt='logout'/>
             </Link>
-            }
+            } */}
         </div>
 
         <div>
