@@ -1,24 +1,20 @@
-import React, { Component, Suspense, lazy} from 'react';
+import React, {Suspense, lazy} from 'react';
 import './App.css';
 import data from "./data2.json";
-// import Home from './components/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {Helmet, HelmetProvider} from 'react-helmet-async';
-// import SignUp from './components/SignUp';
-// import Login from './components/Login';
-// import Slug from './components/Slug';
 import Layout from './components/Layout';
-// import CheckServer from './components/CheckServer';
 import JwtAuth from './components/JwtAuth';
-// import NewFile from './components/NewFIle';
-// import PostVideo from './components/PostVideo';
-// import VideoPage from './components/VideoPage';
-// import Files from './components/FIles';
-// import PostImage from './components/PostImage';
-// import Featured from './components/Featured';
+
+// import Login from "./components/Login"
+// import SlugWrapper from"./components/SlugWrapper";
+// import FeaturedWrapper from "./components/FeaturedWrapper";
+// import { AnimatePresence, useReducedMotion } from 'framer-motion';
+import logo from "../src/logo.svg";
+// import SuspenseWrapper from './components/SuspenseWrapper';
 const Featured = lazy(()=>import("./components/Featured"))
 const PostImage = lazy(()=>import("./components/PostImage"))
-const Files = lazy(()=>import("./components/FIles"))
+const Files = lazy(()=>import("./components/Files"))
 const VideoPage = lazy(()=>import("./components/VideoPage"))
 const PostVideo = lazy(()=>import("./components/PostVideo"))
 const Login = lazy(()=>import("./components/Login"))
@@ -31,18 +27,21 @@ const CheckServer = lazy(()=>import("./components/CheckServer"))
 
 
 
-class App extends Component{
-  
-
-
-    render(){
+// class App extends Component{
+//     constructor(props){
+//       super(props)
 
       
+//     }
 
+
+
+//     render(){
+function App(){
       return (
         <HelmetProvider>
 
-          <div className="app bg-black">
+          <div className="app App bg-black">
           <Helmet>
           <meta http-equiv="Content-Security-Policy"
           content="default-src 'self';"/>
@@ -62,16 +61,19 @@ class App extends Component{
             })
     }
             </Helmet>
-            <Suspense fallback={<div className='h-[100vh] w-[100vw] bg-transparent opacity-25 transtition ease-in delay-1000'>hey</div>}>
+            <Suspense fallback={<div className='w-[100vw] h-[100vh] align-middle items-center justify-center flex'>
+              <img src={logo} className="App-logo" alt="logo"></img>
+              </div>}>
 
-            <Router >
-            {/* <AuthContextProvider> */}
+
+            <Router  >
             <Layout>
             <Routes>
             <Route exact path='/' element={<Home />}/>
             <Route path='/signup' element={<SignUp />}/>
             <Route path='/login' element={<Login />}/>
             <Route path='/page/:slug' element={<Slug />} />
+            {/* <Route path='/page/:slug' element={<SlugWrapper />} /> */}
             <Route path='/checkserver' element={<CheckServer />}/>
             <Route path='/jwtauth' element={<JwtAuth />}/>
             <Route path='/postvideo' element={<PostVideo />}/>
@@ -79,10 +81,10 @@ class App extends Component{
             <Route path='/postimg' element={<PostImage />}/>
             <Route path='/files' element={<Files />}/>
             <Route path='/featured' element={<Featured />}/>
+            {/* <Route path='/featured' element={<FeaturedWrapper />}/> */}
             <Route path='/featured1' element={<NewFile />}/>
             </Routes>
             </Layout>
-            {/* </AuthContextProvider> */}
           </Router> 
             </Suspense>
           </div>
@@ -90,7 +92,7 @@ class App extends Component{
     );
     }
   
-  }
+  
 
 
 export default App;

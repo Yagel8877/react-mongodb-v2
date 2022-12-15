@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.07ab4eaf.css",
-    "main.js": "/static/js/main.b487d73d.js",
-    "static/js/390.e3d60902.chunk.js": "/static/js/390.e3d60902.chunk.js",
+    "main.css": "/static/css/main.92a91514.css",
+    "main.js": "/static/js/main.abe45d5e.js",
+    "static/js/385.fef92d06.chunk.js": "/static/js/385.fef92d06.chunk.js",
     "static/js/756.74ee5d47.chunk.js": "/static/js/756.74ee5d47.chunk.js",
-    "static/js/824.8aa7652c.chunk.js": "/static/js/824.8aa7652c.chunk.js",
-    "static/js/964.dadfd52c.chunk.js": "/static/js/964.dadfd52c.chunk.js",
-    "static/js/623.521d6ab0.chunk.js": "/static/js/623.521d6ab0.chunk.js",
+    "static/js/373.7d9cec9b.chunk.js": "/static/js/373.7d9cec9b.chunk.js",
+    "static/js/964.2b8f3269.chunk.js": "/static/js/964.2b8f3269.chunk.js",
+    "static/js/623.235729bb.chunk.js": "/static/js/623.235729bb.chunk.js",
     "static/js/565.1ed3d9f1.chunk.js": "/static/js/565.1ed3d9f1.chunk.js",
     "static/js/708.f4465b68.chunk.js": "/static/js/708.f4465b68.chunk.js",
-    "static/js/369.4d322581.chunk.js": "/static/js/369.4d322581.chunk.js",
-    "static/js/300.4f3c79ac.chunk.js": "/static/js/300.4f3c79ac.chunk.js",
-    "static/js/767.dd122034.chunk.js": "/static/js/767.dd122034.chunk.js",
-    "static/js/665.3cd1fbc6.chunk.js": "/static/js/665.3cd1fbc6.chunk.js",
+    "static/js/369.9fb950af.chunk.js": "/static/js/369.9fb950af.chunk.js",
+    "static/js/59.ea2309d5.chunk.js": "/static/js/59.ea2309d5.chunk.js",
+    "static/js/767.1e7a165c.chunk.js": "/static/js/767.1e7a165c.chunk.js",
+    "static/js/665.2fc9f209.chunk.js": "/static/js/665.2fc9f209.chunk.js",
     "static/js/27.94a35705.chunk.js": "/static/js/27.94a35705.chunk.js",
-    "static/js/21.e9bc3ec0.chunk.js": "/static/js/21.e9bc3ec0.chunk.js",
+    "static/js/21.d6da4a38.chunk.js": "/static/js/21.d6da4a38.chunk.js",
+    "static/js/406.018cdd07.chunk.js": "/static/js/406.018cdd07.chunk.js",
     "static/js/818.ed04291b.chunk.js": "/static/js/818.ed04291b.chunk.js",
     "static/media/user-logout-3056.svg": "/static/media/user-logout-3056.a474d74023c80f5e752c94c9a3188c3c.svg",
     "static/media/userlogin.svg": "/static/media/userlogin.2f8a291750f7a0756736f14a0d2654fb.svg",
@@ -22,7 +23,7 @@
     "index.html": "/index.html"
   },
   "entrypoints": [
-    "static/css/main.07ab4eaf.css",
-    "static/js/main.b487d73d.js"
+    "static/css/main.92a91514.css",
+    "static/js/main.abe45d5e.js"
   ]
 }

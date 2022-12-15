@@ -1,7 +1,6 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
-import {Component, Suspense} from "react";
-import logo from './../logo.svg';
+import {Component} from "react";
 
 class Featured extends Component{
     constructor(props){
@@ -35,8 +34,10 @@ render(){
             <svg src={logo} className='fill-green bg-green-300'></svg> 
             </div>
             : */}
-        <div className="grid grid-cols-1 md:pb-[5vh] md:grid-cols-2 lg:grid-cols-4 md:pl-[10%] md:mr-[10%] lg:h-[90vh] gap-4 md:gap-2">
+            {/* <Suspense fallback={<p>loading...</p>}> */}
 
+        <div className="grid grid-cols-1 md:pb-[5vh] md:grid-cols-2 lg:grid-cols-4 md:pl-[10%] md:mr-[10%] lg:h-[90vh] gap-4 md:gap-2">
+        
         {this.state.data.map((data) => { 
             if(data?.thumbnailSrc === undefined){
                 data.thumbnailSrc = 'undefined'
@@ -60,6 +61,7 @@ render(){
                 )
             })}
     </div> 
+            {/* </Suspense> */}
 {/* } */}
     </>
     )

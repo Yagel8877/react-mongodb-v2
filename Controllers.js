@@ -71,14 +71,14 @@ module.exports.Login = async (req, res) =>{
 
 
 module.exports.Search = (req, res)=>{
-  console.log(req.body.data)
+  console.log("searching -> " ,req.body.data)
   let ndata = data.filter((e)=>{
     lcvt = e.vidTitle?.toLowerCase()
     if(lcvt?.includes(req?.body?.data.toLowerCase())){
       return true
     }else return false
     })
-    console.log(ndata)
+    // console.log(ndata)
     res.send(ndata)
 }
 

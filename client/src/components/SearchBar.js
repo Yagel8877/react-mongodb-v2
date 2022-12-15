@@ -1,6 +1,5 @@
 import axios from "axios";
-import { useState, Suspense } from "react";
-import { Component } from "react/cjs/react.production.min";
+import { useState, Suspense, Component } from "react";
 
 class SearchBar extends Component{
     

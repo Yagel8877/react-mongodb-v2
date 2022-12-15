@@ -1,6 +1,8 @@
 import jwt_decode from 'jwt-decode';
-import { Component } from 'react';
-import SearchBar from './SearchBar.js'
+import { Component, lazy } from 'react';
+import {motion} from 'framer-motion';
+// import SearchBar from './SearchBar.js'
+const SearchBar = lazy(()=>import("./SearchBar"))
 
 
 class Home extends Component{
@@ -53,6 +55,7 @@ class Home extends Component{
     render(){
                 
     return(
+
     <div className='h-[90vh]'>
     <p>Home page</p>
     <p>hello {this.state.name}</p>
@@ -60,7 +63,7 @@ class Home extends Component{
         {/* <p>{isAuth ? <p>yes it works context</p> : <>nnn</>}</p> */}
         <SearchBar />
     </div>
-
+    
 
 
 

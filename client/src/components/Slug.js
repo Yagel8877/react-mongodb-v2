@@ -25,9 +25,9 @@ function Slug(){
     else return(
         <div className="md:w-[80vw] md:ml-[10vw] md:border-l-2 md:border-r-2 border-gray-400  sm:w-auto sm:h-auto">
         
-        <Suspense fallback={<div className="w-[10vw] h-[100vh]">loading...</div>}>
+        {/* <Suspense fallback={<div className="w-[10vw] h-[100vh]">loading...</div>}> */}
         <SlugVideos />
-        </Suspense>
+        {/* </Suspense> */}
         <Pagination />
         </div>
         
