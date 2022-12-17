@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, Suspense, Component } from "react";
+import { Suspense, Component } from "react";
 
 class SearchBar extends Component{
     

@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 import { Component } from "react";
 import jwt_decode from "jwt-decode";
-import login from '../userlogin.svg';
-import logout from '../user-logout-3056.svg';
-// import { AuthContext } from "../context/AuthContext";
-
+// import login from '../userlogin.svg';
+// import logout from '../user-logout-3056.svg';
 
 class NavBar extends Component{
 
@@ -12,9 +10,6 @@ class NavBar extends Component{
         super(props);
         this.state = {isAuth: false, isAdmin: false}
     }
-
-    // static contextType = AuthContext;
-
         
 
    componentDidMount(){
@@ -44,20 +39,7 @@ class NavBar extends Component{
         }
 
    }
-    //     console.log('mounted navBar')
-    //     try{
-    //     let res = await fetch('/api/jwtauth')
-    //     console.log(res)
-    //     if(res.status === 200){
-    //         this.setState({isAuth: true, isAdmin: false})
-    //         this.changeState()
-    //     }else{
-    //         this.setState({isAuth:false, isAdmin: false})
-    //     }
-    // }catch(err){
-    //     console.log(err)
-    // }
-    // }
+ 
       changeState(){
         
         const iatNow = Math.floor(Date.now() / 1000)
@@ -83,7 +65,6 @@ class NavBar extends Component{
            
     
     }
-    // this.forceUpdate() 
     }
     componentDidUpdate(prevProps, prevState){
         //checks if should update (if they're not the same)
@@ -126,7 +107,7 @@ class NavBar extends Component{
         </div>
         
         <div className="flex justify-end">
-            
+            {/* this is a navbar for mobile */}
             {/* {!this.state.isAuth ? 
             <><Link className="NavItem md:hidden" to='/page/1'>Videos</Link><Link to='login'><img src={login} alt='login' className="ImageNav"/></Link></> : <Link onClick={()=>{document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'";this.changeState();}
             }

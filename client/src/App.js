@@ -1,18 +1,20 @@
 import React, {Suspense, lazy} from 'react';
 import './App.css';
 import data from "./data2.json";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import {Helmet, HelmetProvider} from 'react-helmet-async';
 import Layout from './components/Layout';
 import JwtAuth from './components/JwtAuth';
-
+// import { getFeaturedVideos } from './components/Featured';
+import { FeaturedLoader } from './components/FeaturedPage';
+import SpinningLogo from './components/SpinningLogo';
 // import Login from "./components/Login"
 // import SlugWrapper from"./components/SlugWrapper";
 // import FeaturedWrapper from "./components/FeaturedWrapper";
 // import { AnimatePresence, useReducedMotion } from 'framer-motion';
-import logo from "../src/logo.svg";
+import FeaturedPage from './components/FeaturedPage';
 // import SuspenseWrapper from './components/SuspenseWrapper';
-const Featured = lazy(()=>import("./components/Featured"))
+// const Featured = lazy(()=>import("./components/Featured"))
 const PostImage = lazy(()=>import("./components/PostImage"))
 const Files = lazy(()=>import("./components/Files"))
 const VideoPage = lazy(()=>import("./components/VideoPage"))
@@ -23,22 +25,36 @@ const Slug = lazy(()=>import("./components/Slug"))
 const Home = lazy(()=>import("./components/Home"))
 const NewFile = lazy(()=>import("./components/NewFile"))
 const CheckServer = lazy(()=>import("./components/CheckServer"))
-// import  AuthContextProvider  from './context/AuthContext';
+const ErrorPage = lazy(()=>import("./components/ErrorPage"))
 
 
 
-// class App extends Component{
-//     constructor(props){
-//       super(props)
+const router = createBrowserRouter(
+  createRoutesFromElements(
+          <Route errorElement={<ErrorPage />} path='/' element={<Layout />}>
+          <Route exact path='/' element={<Home />}/>
+          <Route path='signup' element={<SignUp />}/>
+          <Route path='login' element={<Login />}/>
+          <Route path='page/:slug' element={<Slug />} />
+          <Route path='checkserver' element={<CheckServer />}/>
+          <Route path='jwtauth' element={<JwtAuth />}/>
+          <Route path='postvideo' element={<PostVideo />}/>
+          <Route path='video/:slug' element={<VideoPage />}/>
+          <Route path='postimg' element={<PostImage />}/>
+          <Route path='files' element={<Files />}/>
+          {/* <Route path='featured' element={<Featured />} loader={getFeaturedVideos}/> */}
+          <Route path='featured' element={<FeaturedPage />} loader={FeaturedLoader}/>
+          <Route path='featured1' element={<NewFile />}/>
+          </Route>
 
-      
-//     }
+  )
+  )
 
-
-
-//     render(){
 function App(){
-      return (
+      
+  
+  
+    return (
         <HelmetProvider>
 
           <div className="app App bg-black">
@@ -61,19 +77,17 @@ function App(){
             })
     }
             </Helmet>
-            <Suspense fallback={<div className='w-[100vw] h-[100vh] align-middle items-center justify-center flex'>
-              <img src={logo} className="App-logo" alt="logo"></img>
-              </div>}>
-
-
-            <Router  >
+            <Suspense fallback={<SpinningLogo />}>
+            {/* <Layout> */}
+            <RouterProvider router={router} />
+            {/* </Layout> */}
+            {/* <Router  >
             <Layout>
             <Routes>
             <Route exact path='/' element={<Home />}/>
             <Route path='/signup' element={<SignUp />}/>
             <Route path='/login' element={<Login />}/>
             <Route path='/page/:slug' element={<Slug />} />
-            {/* <Route path='/page/:slug' element={<SlugWrapper />} /> */}
             <Route path='/checkserver' element={<CheckServer />}/>
             <Route path='/jwtauth' element={<JwtAuth />}/>
             <Route path='/postvideo' element={<PostVideo />}/>
@@ -81,11 +95,11 @@ function App(){
             <Route path='/postimg' element={<PostImage />}/>
             <Route path='/files' element={<Files />}/>
             <Route path='/featured' element={<Featured />}/>
-            {/* <Route path='/featured' element={<FeaturedWrapper />}/> */}
+            <Route path='/featured' element={<FeaturedWrapper />}/>
             <Route path='/featured1' element={<NewFile />}/>
             </Routes>
             </Layout>
-          </Router> 
+          </Router>  */}
             </Suspense>
           </div>
         </HelmetProvider>

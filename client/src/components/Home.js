@@ -1,6 +1,5 @@
 import jwt_decode from 'jwt-decode';
 import { Component, lazy } from 'react';
-import {motion} from 'framer-motion';
 // import SearchBar from './SearchBar.js'
 const SearchBar = lazy(()=>import("./SearchBar"))
 
@@ -48,6 +47,7 @@ class Home extends Component{
             console.log('updated home didupdate')
         }
         }
+        
     }
 
 
@@ -62,6 +62,10 @@ class Home extends Component{
         {/* <p> hello {decodedCookie?.userName}</p> */}
         {/* <p>{isAuth ? <p>yes it works context</p> : <>nnn</>}</p> */}
         <SearchBar />
+        <div className=''>
+
+            
+        </div>
     </div>
     
 

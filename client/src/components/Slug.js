@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { useParams } from "react-router-dom"
 import data from '../data2.json';
 import Pagination from "./Pagination";
@@ -17,10 +17,10 @@ function Slug(){
 //    console.log(Ldata)
 //    console.log(NLdata)
     if(isNaN(IntSlug)){
-        return <p>404</p>
+        return <p>404, No such page exists</p>
     }
    if(NLdata < 0){
-    return <p>404</p>
+    return <p>404, No such page exists</p>
    }
     else return(
         <div className="md:w-[80vw] md:ml-[10vw] md:border-l-2 md:border-r-2 border-gray-400  sm:w-auto sm:h-auto">
