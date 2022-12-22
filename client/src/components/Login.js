@@ -32,43 +32,28 @@ const Login = () => {
             password: pass
         
         }).then((res)=>{
-            if(res.status === 400 || 401 && res.status !== 200){
-                console.log('changed data- status code is 400 or 401')
-                console.log(res.status)
-                
-            // document.getElementById('alertBox').classList.remove('hidden')
-            // HandleClickAlertBox()
-            return
-        }
-            else if(res.status === 201){
-                // authContext.logIn()
-                // console.log(authContext.isAuth)
+            if(res.status === 201){
                 console.log('location changing because 200 status')
                 window.location.href='/'
-                return
-                
-        }else{
+            }
+            else{
             setMsg("Server's Error :( - try again later!")
         }
-        })
+    })
         .catch(e=>{
-            console.log(e.response)
-            if(e.response.status === 500){
-                console.log(e.response.status)
-                setMsg("server's error")
-                // document.getElementById('alertBox').classList.remove('hidden')
-                // HandleClickAlertBox()
-            }else{
-            // setMsg(e.response.data)
-            console.log(e.response.status)
-            // document.getElementById('alertBox').classList.remove('hidden')
-            // HandleClickAlertBox()
+                if(e.response.status === 400 || e.response.status === 401 || e.response.status === 404){
+                setMsg(e.response.data)
+                
+            }
+            else if(e.response.status === 500){
+            setMsg("Server's Error - Try again shortly")
+            }
+                else{
+                setMsg(`ERROR: status code ${e.response.status}`)
             }
 
+
     })
-        // .then(res => setMsg(res.data)).then(setTimeout( () => 
-        //     document.getElementById('container').classList.remove('hidden'), 2500)
-        //  ).catch(err => console.log(err))
         
     }
     

@@ -72,7 +72,7 @@ function App(){
                 d.thumbnailSrc = 'undefined'
             }
             else if(d.thumbnailSrc.includes('.jpeg') || d.thumbnailSrc.includes('.png')){
-                console.log('valid src')
+                // console.log('valid src')
             }else{
                 d.thumbnailSrc = 'undefined'
             }

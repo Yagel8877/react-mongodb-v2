@@ -24,7 +24,7 @@ const SlugVideos = () => {
                     data.thumbnailSrc = 'undefined'
                 }
                 else if(data.thumbnailSrc.includes('.jpeg') || data.thumbnailSrc.includes('.png')){
-                    console.log('valid src')
+                    // console.log('valid src')
                 }else{
                     data.thumbnailSrc = 'undefined'
                 }   

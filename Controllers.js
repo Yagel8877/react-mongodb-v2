@@ -42,6 +42,7 @@ module.exports.Login = async (req, res) =>{
   
 
   const user = await User.findOne({userName: req.body.userName})
+  console.log(user)
   try{ 
   if(await bcrypt.compare(req.body.password, user.password)){
       // const token = CreateToken(user.userName, user.isAdmin)
@@ -58,8 +59,10 @@ module.exports.Login = async (req, res) =>{
          
     }
   }
-    catch{
-        res.status(400).send("User doesn't exists")
+    catch(e){
+        if(user === null){
+        res.status(404).send("User doesn't exists")
+        }
         console.log('no such user or undefined values')
   }
   console.timeEnd('loopLogin')
