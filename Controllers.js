@@ -50,11 +50,7 @@ module.exports.Login = async (req, res) =>{
 
       console.log('authenticated')
       // res.cookie('jwt', token, {maxAge: 1000*60*15})
-      res.status(200).cookie('jwt', token, {maxAge: 1000*60*15}).send(user.userName)
-      
-      
-
-     
+      res.status(201).cookie('jwt', token, {maxAge: 1000*60*15}).send(user.userName)     
     }
     else{
         res.status(401).send('not allowed')
@@ -63,7 +59,7 @@ module.exports.Login = async (req, res) =>{
     }
   }
     catch{
-        res.status(401).send("User doesn't exists")
+        res.status(400).send("User doesn't exists")
         console.log('no such user or undefined values')
   }
   console.timeEnd('loopLogin')

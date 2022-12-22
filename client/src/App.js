@@ -1,4 +1,4 @@
-import React, {Suspense, lazy} from 'react';
+import React, {Suspense, lazy, useRef} from 'react';
 import './App.css';
 import data from "./data2.json";
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
@@ -27,8 +27,12 @@ const NewFile = lazy(()=>import("./components/NewFile"))
 const CheckServer = lazy(()=>import("./components/CheckServer"))
 const ErrorPage = lazy(()=>import("./components/ErrorPage"))
 
-
-
+const RevalidateFeaturedLoad = () => {
+  const ref = useRef()
+  const firstRender = ref.current
+  ref.current = false
+  return firstRender
+}
 const router = createBrowserRouter(
   createRoutesFromElements(
           <Route errorElement={<ErrorPage />} path='/' element={<Layout />}>
@@ -43,7 +47,9 @@ const router = createBrowserRouter(
           <Route path='postimg' element={<PostImage />}/>
           <Route path='files' element={<Files />}/>
           {/* <Route path='featured' element={<Featured />} loader={getFeaturedVideos}/> */}
-          <Route path='featured' element={<FeaturedPage />} loader={FeaturedLoader}/>
+          {/* <Route path='featured' element={<FeaturedPage />} loader={FeaturedLoader} shouldRevalidate={()=>{return true}}/> */}
+          <Route path='featured' element={<FeaturedPage />} />
+
           <Route path='featured1' element={<NewFile />}/>
           </Route>
 
@@ -70,8 +76,6 @@ function App(){
             }else{
                 d.thumbnailSrc = 'undefined'
             }
-              
-
               return(
             <link rel='preload' as='image' href={`/api/image/`+d.thumbnailSrc} key={d.vId}></link>)
             })

@@ -60,7 +60,7 @@ function Featured({Data}){
             return(
                 <div className="pt-[10%]" key={data.vId} >
                 <Link to={`/video/`+ data?.serialNum} >
-                        <img src={`/api/image/`+data?.thumbnailSrc} alt="fun nice"></img>
+                        <img className="skeleton lg:w-[320px] lg:h-[180px] md:w-[240px] md:h-[135px]" src={`/api/image/`+data?.thumbnailSrc} alt="fun nice"></img>
                 </Link>
                 <p className="font-bold overflow-hidden text-white text-lg">{(data?.vidTitle?.length > 50) ? `${data?.vidTitle.substring(0,50)}...` : data?.vidTitle}</p>
                 </div>

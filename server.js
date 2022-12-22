@@ -143,10 +143,11 @@ gfs?.files?.find().toArray((err,file)=>{
   })
 })
 
-app.get('/api/image/:filename', cache('1 day'), (req,res)=>{
-  // console.time('findshowimage')
+app.get('/api/image/:filename', cache('365 day'), (req,res)=>{
+  console.time('findshowimage')
   // console.log(req.params.filename)
-  if(req.params.filename === 'undefined'){
+  let a = req.params.filename.toString()
+  if(a === 'undefined'){
     const readstreamUndefined = gridfsBucket.openDownloadStreamByName('f25abf8ea6b43a22d28b34ffd41a05a0.jpeg')
     readstreamUndefined.pipe(res)
     return
