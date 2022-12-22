@@ -1,6 +1,5 @@
 import NavBar from "./NavBar";
 import { Outlet, useNavigation } from "react-router-dom";
-import { Loading, Progress } from "@nextui-org/react"
 import { useRef } from "react";
 
 

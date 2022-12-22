@@ -66,7 +66,7 @@ function App(){
           <div className="app App bg-black">
           <Helmet>
           <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self';"/>
+          content=""/>
             {data.map((d)=>{
               if(d.thumbnailSrc === undefined){
                 d.thumbnailSrc = 'undefined'

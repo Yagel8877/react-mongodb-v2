@@ -17,8 +17,22 @@ code {
 }
 
 .PaginationDiv {
-  @apply gap-2 text-center w-[100vw] flex relative z-10 bg-green-600 md:w-[50%] md:ml-[25%] md:h-[6vh] justify-evenly border-2 border-white
-}
+  @apply md:text-white md:text-base text-sm list-none flex md:gap-6  gap-4 text-red-400 md:pt-0 pt-5 pb-5 bg-black justify-center  items-center
+} 
+
+.PageButtonNumber:hover {
+  @apply bg-gray-700  transition duration-200
+} 
+ .PageButtonNumber{
+  @apply transition duration-200 rounded-full w-[30px] h-[30px] place-items-center md:h-10 md:w-10 sm:w-6 sm:h-6
+} 
+.SelectedPageButton {
+  @apply rounded-full bg-gray-600 w-[30px] h-[30px] transition duration-200
+} 
+.SelectedPageButton:hover {
+  @apply bg-gray-800 transition duration-200 ease-in
+} 
+
 
 .NavItem {
   @apply md:text-xl border p-2 h-[50px] mt-5 rounded-sm font-bold text-blue-600 hover:bg-blue-100 transition ease-in-out hover:translate-y-1 duration-300 hover:scale-[105%]
