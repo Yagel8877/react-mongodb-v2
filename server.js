@@ -163,7 +163,7 @@ app.get('/api/image/:filename', cache('365 day'), (req,res)=>{
       
       const readstream = gridfsBucket.openDownloadStreamByName(req.params.filename)
       readstream.pipe(res)
-      
+
 
     }else{
       res.status(404).json({err: 'not an image'})

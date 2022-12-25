@@ -14,6 +14,7 @@ function Slug(){
    let Ldata = data.length
    let Nslug = slug - 1;
    let NLdata = Ldata - NumOfVids* Nslug;
+   window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
 //    console.log(IntSlug)
 //    console.log(Ldata)
 //    console.log(NLdata)
@@ -24,7 +25,7 @@ function Slug(){
     return <p>404, No such page exists</p>
    }
     else return(
-        <div className="md:w-[80vw] md:h-[90vh] md:ml-[10vw] md:border-l-2 md:border-r-2  border-gray-400">
+        <div className="md:h-[90vh] overscroll-scroll">
         {/* <Suspense fallback={<div className="w-[10vw] h-[100vh]">loading...</div>}> */}
         <SlugVideos />
         {/* </Suspense> */}

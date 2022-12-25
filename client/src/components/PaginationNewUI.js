@@ -53,7 +53,7 @@ import NavigatePreviousIcon from '@mui/icons-material/NavigateBefore';
             }else if(type === 'first') {
                     if(disabled){
                         children = (
-                            <button type="button" className="opacity-[20%]" {...item}>
+                            <button type="button" className="disabledButtonPagination" {...item}>
                                 <FirstPageIcon />
                             </button>
                 );
@@ -70,7 +70,7 @@ import NavigatePreviousIcon from '@mui/icons-material/NavigateBefore';
                 if(disabled){
                     console.log(page)
                     children = (
-                        <button type="button" className="opacity-[20%]">
+                        <button type="button" className="disabledButtonPagination">
                     <LastPageIcon />
                   </button>
                 );
@@ -86,7 +86,7 @@ import NavigatePreviousIcon from '@mui/icons-material/NavigateBefore';
                 if(disabled){
 
                     children = (
-                        <button type="button" className="opacity-[20%]">
+                        <button type="button" className="disabledButtonPagination">
                     <NavigateNextIcon />
                   </button>
                 );
@@ -102,7 +102,7 @@ import NavigatePreviousIcon from '@mui/icons-material/NavigateBefore';
               else if(type === 'previous') {
                 if(disabled){
                     children = (
-                  <button type="button" className="opacity-[20%]">
+                  <button type="button" className="disabledButtonPagination">
                     <NavigatePreviousIcon />
                   </button>
                 );

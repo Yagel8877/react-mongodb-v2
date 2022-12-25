@@ -18,7 +18,7 @@ const SlugVideos = () => {
     // console.log(Nslug)
     // console.log(NLdata)
     return (
-        <div className="grid grid-cols-1 pt-[4vh] md:pb-[1vh] md:grid-cols-3 lg:grid-cols-4 md:ml-[3vw] lg:h-[84vh] gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 h-[90%]  pt-[4vh] md:grid-cols-3 2xl:grid-cols-4 md:ml-[3vw] lg:h-[84vh] gap-4">
             {SlicedData.map((data) => {   
                 if(data.thumbnailSrc === undefined){
                     data.thumbnailSrc = 'undefined'
@@ -31,11 +31,11 @@ const SlugVideos = () => {
                 
 
                 return(
-                    <div className="skeleton" key={data.vId} onClick={()=>PostVidClick(data)}>
+                    <div className="Vid-Title-Skeleton" key={data.vId} onClick={()=>PostVidClick(data)}>
                     <Link to={`/video/`+ data.serialNum} >
                         {/* <div className='pt-[56.25%] text-red-400 transition border-2 border-white duration-150 bg-blue-600 hover:shadow-2xl hover:-translate-y-1 shadow-green-900'> */}
 
-                            <img src={`/api/image/`+data?.thumbnailSrc} alt="fun nice" className="lg:w-[320px] lg:h-[180px] md:w-[240px] md:h-[135px]"></img>
+                            <img src={`/api/image/`+data?.thumbnailSrc} alt="fun nice" className="imageThumbnail"></img>
                         {/* </div> */}
                     </Link>
                     <p className="font-bold overflow-hidden text-white text-lg">{(data.vidTitle?.length > 50) ? `${data.vidTitle.substring(0,50)}...` : data.vidTitle}</p>
