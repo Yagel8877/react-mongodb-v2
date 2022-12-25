@@ -9,14 +9,14 @@ const Login = () => {
 
     const [Msg, setMsg] = useState(false)
    
-    const HandleClickAlertBox = () =>{
-        let AlertBoxUI = document.getElementById('alertBox')
-        if(AlertBoxUI.classList.contains('hidden')){
-            AlertBoxUI.classList.remove('hidden')
-        }else{
-            AlertBoxUI.classList.add('hidden')
-        }
-    }
+    // const HandleClickAlertBox = () =>{
+    //     let AlertBoxUI = document.getElementById('alertBox')
+    //     if(AlertBoxUI.classList.contains('hidden')){
+    //         AlertBoxUI.classList.remove('hidden')
+    //     }else{
+    //         AlertBoxUI.classList.add('hidden')
+    //     }
+    // }
 
     const HandleClickLogin = (e) => {
         e.preventDefault();

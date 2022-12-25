@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { useParams } from "react-router-dom"
 import data from '../data2.json';
-import Pagination from "./Pagination";
+// import Pagination from "./Pagination";
 import PaginationNewUI from "./PaginationNewUI";
 // const Pagination = lazy(()=> import('./Pagination'))
 // import SlugVideos from "./SlugVideos";

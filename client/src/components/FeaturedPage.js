@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom"
+// import { useLoaderData } from "react-router-dom"
 import Featured from "./Featured";
 import axios from "axios";
 import useSWR from "swr";

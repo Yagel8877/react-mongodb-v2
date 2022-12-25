@@ -6,7 +6,7 @@ import {Helmet, HelmetProvider} from 'react-helmet-async';
 import Layout from './components/Layout';
 import JwtAuth from './components/JwtAuth';
 // import { getFeaturedVideos } from './components/Featured';
-import { FeaturedLoader } from './components/FeaturedPage';
+// import { FeaturedLoader } from './components/FeaturedPage';
 import SpinningLogo from './components/SpinningLogo';
 // import Login from "./components/Login"
 // import SlugWrapper from"./components/SlugWrapper";
@@ -27,12 +27,12 @@ const NewFile = lazy(()=>import("./components/NewFile"))
 const CheckServer = lazy(()=>import("./components/CheckServer"))
 const ErrorPage = lazy(()=>import("./components/ErrorPage"))
 
-const RevalidateFeaturedLoad = () => {
-  const ref = useRef()
-  const firstRender = ref.current
-  ref.current = false
-  return firstRender
-}
+// const RevalidateFeaturedLoad = () => {
+//   const ref = useRef()
+//   const firstRender = ref.current
+//   ref.current = false
+//   return firstRender
+// }
 const router = createBrowserRouter(
   createRoutesFromElements(
           <Route errorElement={<ErrorPage />} path='/' element={<Layout />}>

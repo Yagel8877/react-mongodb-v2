@@ -1,6 +1,6 @@
 import NavBar from "./NavBar";
-import { Outlet, useNavigation } from "react-router-dom";
-import { useRef } from "react";
+import { Outlet } from "react-router-dom";
+// import { useRef } from "react";
 
 
 //Layout with checking if page is in loading state with react-router v6.4 page that use loader function that needs to be resolve before rendering the page
