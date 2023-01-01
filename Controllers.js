@@ -1,12 +1,12 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const User = require('./client/models/User');
+const User = require('./models/User');
 const fs = require('fs');
-const data = require('./client/src/data2.json');
+const data = require('./data2.json');
 const { randomUUID } = require('crypto');
-const ViewedVideosSchema = require('./client/models/ViewedVideosSchema');
-const FeaturedVideosSchema = require('./client/models/FeaturedVideosSchema');
+const ViewedVideosSchema = require('./models/ViewedVideosSchema');
+const FeaturedVideosSchema = require('./models/FeaturedVideosSchema');
 
 const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credentials?retryWrites=true&w=majority"
 const dbURI2 = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/VideoAlgorithm?retryWrites=true&w=majority"
@@ -139,7 +139,7 @@ module.exports.PostVid = (req, res) => {
   console.log(obj)
   
   const position = 1;
-  const file_path = 'client/src/data2.json';
+  const file_path = './data2.json';
 fs.readFile(file_path, function read(err, data) {
     if (err) {
         throw err;

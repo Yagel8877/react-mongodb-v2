@@ -15,7 +15,7 @@ const port = process.env.PORT || 5000;
 const Compression = require("compression");
 const cron = require('node-cron');
 const apicache = require('apicache');
-const FeaturedVideosSchema = require('./client/models/FeaturedVideosSchema');
+const FeaturedVideosSchema = require('./models/FeaturedVideosSchema');
 const helmet = require('helmet');
 
 
