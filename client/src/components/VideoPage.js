@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import data from "../data2.json";
+import data from "../dbvideos.json";
 
 
 

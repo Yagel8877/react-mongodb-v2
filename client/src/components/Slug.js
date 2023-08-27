@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import { useParams } from "react-router-dom"
-import data from '../data2.json';
+// import data from '../data2.json';
+import data from '../numofvids.json'
 // import Pagination from "./Pagination";
 import PaginationNewUI from "./PaginationNewUI";
 // const Pagination = lazy(()=> import('./Pagination'))
@@ -11,7 +12,7 @@ function Slug(){
     let NumOfVids = 12
    let { slug } = useParams(); 
    let IntSlug = parseInt(slug)
-   let Ldata = data.length
+   let Ldata = data.len
    let Nslug = slug - 1;
    let NLdata = Ldata - NumOfVids* Nslug;
    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})

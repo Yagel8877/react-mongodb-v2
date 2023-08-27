@@ -6,14 +6,14 @@ module.exports.jwtVerify = (req,res,next) =>{
     if(jwtcookie === undefined){
       res.status(401)
     }
-    console.time('jwtverifyauthmiddleware')
+    // console.time('jwtverifyauthmiddleware')
     jwt.verify(jwtcookie,'secret', (err,decoded)=>{
       if(err){
         console.log('failed auth')
-        console.timeEnd('jwtverifyauthmiddleware')
+        // console.timeEnd('jwtverifyauthmiddleware')
       }else{
         console.log('success auth')
-        console.timeEnd('jwtverifyauthmiddleware')
+        // console.timeEnd('jwtverifyauthmiddleware')
         next()
       }
     })

@@ -8,7 +8,7 @@ const express = require('express');
 const app = express(); 
 const path = require("path")
 const methodOverride = require('method-override');
-const { Login, Signup, PostVid, postimg, VideosAlgorithm, RenewFeatured, Search} = require('./Controllers');
+const { Login, Signup, PostVid, postimg, VideosAlgorithm, RefreshFeatured, Search, getVideos, writeVideosLocally} = require('./Controllers');
 const { jwtVerify, jwtVerifyAdmin} = require('./Middleware');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000; 
@@ -36,13 +36,19 @@ const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credent
 const dbURI2 = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/VideoAlgorithm?retryWrites=true&w=majority"
 
 
-cron.schedule('0 1 * * 1,2,3,4,5,6,7', () => {
-  RenewFeatured()
+//refreshing the featured videos every day at 01:00
+
+cron.schedule('0 1 * * 0,1,2,3,4,5,6,7', () => {
+  RefreshFeatured()
+}, {
+  timezone: "Asia/Jerusalem"
 });
 
-// cron.schedule('* * * * *', () => {
-//   RenewFeatured()
-// });
+cron.schedule('0 21 * * 0,1,2,3,4,5,6,7', () => {
+  writeVideosLocally()
+}, {
+  timezone: "Asia/Jerusalem"
+});
 
 
 app.get('/',cache('1 day') , function (req, res) {
@@ -66,7 +72,6 @@ app.get('/express_backend', (req,res) => {
 })
 
 app.get('/signup', (req,res) => {
-  // res.send({msg:'serv work signup'}).status(200)
   res.sendFile(path.join(__dirname,'/client/build/index.html'));
 })
 
@@ -79,6 +84,7 @@ app.get('/login', (req, res)=>{
   res.sendFile(path.join(__dirname,'/client/build/index.html'));
 })
 
+// app.get('/getvideos',cache('1 day'), getVideos)
 
 app.post('/signup', Signup)
 
@@ -87,7 +93,6 @@ app.post('/login', Login)
 app.post('/postvideo', jwtVerifyAdmin, PostVid)
 
 app.post('/viewedvideos', jwtVerify, VideosAlgorithm)
-
 
 app.post('/search', Search)
 
@@ -143,9 +148,7 @@ gfs?.files?.find().toArray((err,file)=>{
   })
 })
 
-app.get('/api/image/:filename', cache('365 day'), (req,res)=>{
-  console.time('findshowimage')
-  // console.log(req.params.filename)
+app.get('/api/image/:filename', cache('20 day'), (req,res)=>{
   let a = req.params.filename.toString()
   if(a === 'undefined'){
     const readstreamUndefined = gridfsBucket.openDownloadStreamByName('f25abf8ea6b43a22d28b34ffd41a05a0.jpeg')
@@ -154,8 +157,6 @@ app.get('/api/image/:filename', cache('365 day'), (req,res)=>{
   }
   gfs?.files?.findOne({filename: req.params.filename}, (err, file)=>{
     if(!file || file.length === 0 || err){
-      // console.log(req.params.filename)
-      // console.log(err)
       return res.status(404).json({err: 'no files!'})
     }
     if(file.contentType === 'image/jpeg'|| file.contentType === 'image/png'){
@@ -168,21 +169,15 @@ app.get('/api/image/:filename', cache('365 day'), (req,res)=>{
     }else{
       res.status(404).json({err: 'not an image'})
     }
-    // console.timeEnd('findshowimage')
   })
     })
   
 app.get('/api/featured', cache('1 day') ,async(req,res)=>{
     console.log(req.body + " -> GET '/featured'")
     console.log('called /featured')
-    // mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
-    // .then((result) => {console.log("connection made to DB - GET '/featured'")}).catch((err) => {console.log(err)})
-
+  
     const conn = mongoose.createConnection(dbURI2, {serverSelectionTimeoutMS: 10000, useNewUrlParser: true, useUnifiedTopology: true});
     const FeaturedVideosConn = conn.model('Featuredvideos', FeaturedVideosSchema)
-
-    //this is automated every day
-    // RenewFeatured().then(console.log('renewed featured!'))
     
     let data = await FeaturedVideosConn.find()
     res.status(201).json(data)

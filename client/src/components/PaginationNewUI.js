@@ -1,4 +1,4 @@
-import data from "../data2.json";
+import data from "../numofvids.json";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router";
 import usePagination from '@mui/material/usePagination';
@@ -16,8 +16,10 @@ import NavigatePreviousIcon from '@mui/icons-material/NavigateBefore';
     const NumOfVids = 12
     let { slug } = useParams();
     let IntSlug = parseInt(slug);
-    let length = data.length
+    let length = parseInt(data.len) + 1 //adding 1 for cases when NumOfpages % 12 === 0 but theres actualy 1 more video because in starts from 0 and not 1.
+    console.log(length)
     let NumOfPages = Math.ceil(length/NumOfVids)
+    console.log(NumOfPages)
     const { items } = usePagination({
       count: NumOfPages,
       page: IntSlug,
@@ -68,7 +70,7 @@ import NavigatePreviousIcon from '@mui/icons-material/NavigateBefore';
               
               else if(type === 'last') {
                 if(disabled){
-                    console.log(page)
+                    // console.log(page)
                     children = (
                         <button type="button" className="disabledButtonPagination">
                     <LastPageIcon />

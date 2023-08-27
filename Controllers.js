@@ -3,10 +3,11 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 const fs = require('fs');
-const data = require('./data2.json');
+// const data = require('./data2.json');
 const { randomUUID } = require('crypto');
 const ViewedVideosSchema = require('./models/ViewedVideosSchema');
 const FeaturedVideosSchema = require('./models/FeaturedVideosSchema');
+const Videos = require('./models/VideosSchema')
 
 const dbURI = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/credentials?retryWrites=true&w=majority"
 const dbURI2 = "mongodb+srv://yagel:VDHcur2014@cluster0.gkqyy.mongodb.net/VideoAlgorithm?retryWrites=true&w=majority"
@@ -35,7 +36,7 @@ module.exports.postimg = (req, res) =>{
 
 
 module.exports.Login = async (req, res) =>{
-  console.time('loopLogin')
+  // console.time('loopLogin')
     if(mongoose.connection.readyState === 0) {mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => {console.log('connection made to DB- searching user login')}).catch((err) => {res.status(400).send(err)})}
 
@@ -65,7 +66,7 @@ module.exports.Login = async (req, res) =>{
         }
         console.log('no such user or undefined values')
   }
-  console.timeEnd('loopLogin')
+  // console.timeEnd('loopLogin')
 }
 
 
@@ -84,7 +85,7 @@ module.exports.Search = (req, res)=>{
 // Sign Up req:POST
 
 module.exports.Signup = async (req,res) => {
-    console.time('loop')
+    // console.time('loop')
     if(mongoose.connection.readyState === 0)  {mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => {console.log('connection made to DB')}).catch((err) => {res.status(400).send(err)})}
 
@@ -109,49 +110,78 @@ module.exports.Signup = async (req,res) => {
     res.send('signup is faulty').status(401)
     console.log('aa')
   }
-  console.timeEnd('loop')
+  // console.timeEnd('loop')
 }
 
 // Post Video req:POST
-module.exports.PostVid = (req, res) => {
-  console.time('post a vid')
-  // console.log(req)
-  console.log(req.body)
-  // console.log(req.headers)
-  req.body.vId = randomUUID()
-  req.body.serialNum = data.length + 1
-  if(req.body.vidTitle === '') return;
-  
-  
-  // check if the thumbnailsrc is a string and if doesnt have png/jpeg so change the thumnail srcc!
-
-
-  
+module.exports.PostVid =  async(req, res) => {
+//first checks if posted vid has src, and if doesnt have vidtitle
   let strsrc = req.body.vidSrc
   if(strsrc === undefined){
-    console.log('undefined vidsrc')
+    console.log('undefined vidsrc, put vid src')
+    return;
   }
   else if(!strsrc.includes('.com'))  {
     console.log('not a valid source!! (not .com ending')
     return;
   };
+
+  if(req.body.vidTitle === ''){
+    console.log('no vid title')
+    return;
+  }
+
+  if(mongoose.connection.readyState === 0)  {mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => {console.log('connection made to DB')}).catch((err) => {res.status(400).send(err)})}
+
+  let LengthOfVideos = await Videos.countDocuments()
+  console.log(req.body)
+  console.log(LengthOfVideos)
+  req.body.vId = randomUUID()
+  req.body.serialNum = LengthOfVideos + 1
+
   let obj = JSON.stringify(req.body)
-  console.log(obj)
+
+  let NewVideo = new Videos({vidTitle: req.body.vidTitle, aboutVid: req.body.aboutVid, vidSrc: req.body.vidSrc, thumbnailSrc: req.body.thumbnailSrc, vId: req.body.vId, serialNum: req.body.serialNum})
   
-  const position = 1;
-  const file_path = './data2.json';
-fs.readFile(file_path, function read(err, data) {
-    if (err) {
-        throw err;
-    }
-    const file_content = data.toString();
-    let file_contentA = file_content.substring(position);
-    const file = fs.openSync(file_path,'r+');
-    const bufferedText = Buffer.from(obj+','+file_contentA);
-    fs.writeSync(file, bufferedText, 0, bufferedText.length, position);
-    fs.close(file);
-});
-console.timeEnd('post a vid')
+  //saving the new video to db, and then updates (or make new file ) 
+  //numofvids.json to correspond to the new length of videos documents in db for pagination and slug-url
+
+  NewVideo.save().then(console.log(`${req.body.serialNum} video id - has been saved!`)).then(fs.writeFile('./client/src/numofvids.json', `{"len": ${LengthOfVideos.toString()}}`, {flag: "w"}, (err)=>{
+    if(err) throw new Error("number of videos haven't been updated in numofvids.json ");
+    else console.log("numofvids.js has been updated")
+  })).catch((e)=> {throw new Error(`bad vid saving, check if saved, error: ${e}`)})
+  
+  
+
+
+  
+  // check if the thumbnailsrc is a string and if doesnt have png/jpeg so change the thumnail srcc!
+//   let strsrc = req.body.vidSrc
+//   if(strsrc === undefined){
+//     console.log('undefined vidsrc')
+//   }
+//   else if(!strsrc.includes('.com'))  {
+//     console.log('not a valid source!! (not .com ending')
+//     return;
+//   };
+//   let obj = JSON.stringify(req.body)
+//   console.log(obj)
+  
+//   const position = 1;
+//   const file_path = './data2.json';
+// fs.readFile(file_path, function read(err, data) {
+//     if (err) {
+//         throw err;
+//     }
+//     const file_content = data.toString();
+//     let file_contentA = file_content.substring(position);
+//     const file = fs.openSync(file_path,'r+');
+//     const bufferedText = Buffer.from(obj+','+file_contentA);
+//     fs.writeSync(file, bufferedText, 0, bufferedText.length, position);
+//     fs.close(file);
+// });
+// console.timeEnd('post a vid')
 
 } 
 
@@ -172,8 +202,8 @@ module.exports.VideosAlgorithm = async (req, res) => {
 
       let list1 = await ViewedVideosConn.find()
 
-      let B = list1.sort((a,b)=>{return b.Viewed-a.Viewed})
-      let TwelveList = B.slice(0,11)
+      // let B = list1.sort((a,b)=>{return b.Viewed-a.Viewed})
+      // let TwelveList = B.slice(0,11)
       
       //see the feaured videos, 12 in numbers
       // console.log(TwelveList)
@@ -182,10 +212,8 @@ module.exports.VideosAlgorithm = async (req, res) => {
     
 }
 
-module.exports.RenewFeatured = async() =>{
-  console.log('called renewFeatured')
-  // mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
-  // .then((result) => {console.log("connection made to DB - GET '/featured'")}).catch((err) => {console.log(err)})
+module.exports.RefreshFeatured = async() =>{
+  console.log('called RefreshFeatured')
     
     const conn = mongoose.createConnection(dbURI2, {serverSelectionTimeoutMS: 3000, useNewUrlParser: true, useUnifiedTopology: true});
     const ViewedVideosConn = conn.model('Viewedvideos', ViewedVideosSchema);
@@ -201,15 +229,42 @@ module.exports.RenewFeatured = async() =>{
       // res.status(500).send('not works')
       // console.log('not works - no twelvelist')
       console.log(TwelveList.length + "length of featured videos list")
+      
 
     }else{
       // res.status(201).json(TwelveList)
       await FeaturedVideosConn.deleteMany({})
       await FeaturedVideosConn.insertMany([...TwelveList]).catch(e=>{console.log(e);return})
       await ViewedVideosConn.updateMany({}, { $set: { Viewed: 0 } });
+      
 
     }
+    conn.close().then(console.log('conn closed'))
     // await ViewedVideosConn.updateMany({}, { $set: { Viewed: 0 } });
 
 
+}
+
+// module.exports.getVideos = async(req, res) => {
+//   if(mongoose.connection.readyState === 0)  {mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then((result) => {console.log('connection made to DB')}).catch((err) => {res.status(400).send(err)})}
+
+//   let data = await Videos.find()
+//   // console.log(data)
+//   //reversing the array so the newest video dont get moved from the first page
+//   res.send(JSON.stringify(data.reverse()))
+// } 
+
+module.exports.writeVideosLocally = async(req,res)=>{
+
+  if(mongoose.connection.readyState === 0)  {mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((result) => {console.log('connection made to DB')}).catch((err) => {res.status(400).send(err)})}
+
+  let data = await Videos.find()
+  // console.log(data)
+  //reversing the array so the newest video dont get moved from the first page
+  let reversedData = JSON.stringify(data.reverse())
+  fs.writeFile('./client/src/dbvideos.json', reversedData, {flag: "w"}, (err)=>{
+    if(err) {throw new Error('couldnt save new videos to local vid db')}else console.log('succes in saving to local db vid')
+  } )
 }

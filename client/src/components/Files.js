@@ -8,7 +8,7 @@ class Files extends Component{
         }
     }
     async componentDidMount(){
-        console.time('a')
+        // console.time('a')
         let data = await fetch('/api/files').then(res=>res.json()).then(e=>console.log(e.slice(-1))).then(console.timeEnd('a'))
         this.setState({Data: data})
 

@@ -1,6 +1,6 @@
 import React, {Suspense, lazy, useRef} from 'react';
 import './App.css';
-import data from "./data2.json";
+import data from "./dbvideos.json";
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import {Helmet, HelmetProvider} from 'react-helmet-async';
 import Layout from './components/Layout';

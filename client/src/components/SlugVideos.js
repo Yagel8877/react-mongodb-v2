@@ -1,22 +1,36 @@
-import data from "../data2.json"
+import data from "../dbvideos.json"
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { PostVidClick } from "./PostVidClick";
+// import { useState, useEffect } from "react";
+// import useSWR from 'swr'
+import SpinningLogo from "./SpinningLogo";
 
 
 const SlugVideos = () => {
+   
+// const [data, setData] = useState(undefined)
+    //NOW DATA IS BEING SIPHONED FROM LOCAL AND NOT API
+    // const fetcher = (...args) => fetch(...args).then(res => res.json())
+    // const { data, error, isLoading } = useSWR('/getvideos', fetcher)
+
+    // const LoaderData = useLoaderData()
+    // console.log(JSON.stringify(data))
     let NumOfVids = 12 
     let { slug } = useParams();
     let IntSlug = parseInt(slug)
     let Nslug = IntSlug - 1;
-    let Ldata = data.length;
-    let NLdata = Ldata - NumOfVids* Nslug;
+    // let Ldata = data?.length;
+    // let NLdata = Ldata - NumOfVids* Nslug;
     let Ndata = NumOfVids*Nslug
 
-    let SlicedData = data.slice(Ndata,Ndata+NumOfVids);
+    let SlicedData = data?.slice(Ndata,Ndata+NumOfVids);
 
     // console.log(Nslug)
     // console.log(NLdata)
+    //SWR section for load and error
+    // if(error) return <div>erorrrrr</div>
+    // if(isLoading) return <SpinningLogo />      
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 h-[90%]  pt-[4vh] md:grid-cols-3 2xl:grid-cols-4 md:ml-[3vw] lg:h-[84vh] gap-4">
             {SlicedData.map((data) => {   
@@ -42,6 +56,6 @@ const SlugVideos = () => {
                     </div>
                     )
         })}
-        </div>   )
+        </div> )
     }
 export default SlugVideos;
